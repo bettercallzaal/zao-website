@@ -66,10 +66,10 @@ export default function About() {
       <Section heading="How it started">
         <div className="max-w-2xl space-y-4">
           <p style={{ color: 'var(--zao-cream-dim)' }}>
-            Founder Zaal Panthaki met the artist Jango in 2017, crossed paths again in 2019,
-            and started working with him in 2020. Around a song release that year, getting an
-            artist heard for a room of friends was the moment it clicked - this was worth
-            building around.
+            Founder Zaal Panthaki met the artist JANGOUU FOREVER in 2017, crossed paths again
+            in 2019, and started working with them in 2020. Around a song release that year,
+            getting an artist heard for a room of friends was the moment it clicked - this was
+            worth building around.
           </p>
           <p style={{ color: 'var(--zao-cream-dim)' }}>
             That seed became The ZAO, founded in 2024 - a home where artists and builders ship

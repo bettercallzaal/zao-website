@@ -58,9 +58,9 @@ export default function Leaderboard() {
       <Section heading="Where the standings live">
         <div className="max-w-2xl space-y-4">
           <p style={{ color: 'var(--zao-cream-dim)' }}>
-            The standings are settled onchain and in the weekly sessions. The most reliable way
-            to see where things stand - and to start earning - is to show up to a session and
-            follow along in the community.
+            Today, 156 members hold Respect. The standings are settled onchain and in the
+            weekly sessions. The most reliable way to see where things stand - and to start
+            earning - is to show up to a session and follow along in the community.
           </p>
         </div>
       </Section>

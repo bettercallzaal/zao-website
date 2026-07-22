@@ -12,7 +12,7 @@ export const ZAO_COLORS = {
 } as const
 
 export const NOTABLE_ARTISTS = [
-  'Jango UU',
+  'JANGOUU FOREVER',
   'Songs of Eden',
   'Hurric4n3Ike',
   'Attabotty',
