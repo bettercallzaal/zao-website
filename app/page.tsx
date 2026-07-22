@@ -4,7 +4,8 @@ import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
 import { ArtistCard } from '@/components/ArtistCard'
-import { NOTABLE_ARTISTS } from '@/lib/constants'
+import { EcosystemCard } from '@/components/EcosystemCard'
+import { NOTABLE_ARTISTS, ECOSYSTEM } from '@/lib/constants'
 
 export default function Home() {
   return (
@@ -27,7 +28,19 @@ export default function Home() {
         </Container>
       </section>
 
-      <Section heading="Notable Artists & Builders">
+      <Section heading="What we build">
+        <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
+          Everything under the umbrella serves the same idea - artists owning their work.
+          Each of these is its own project, built in the open.
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {ECOSYSTEM.map((p) => (
+            <EcosystemCard key={p.name} name={p.name} blurb={p.blurb} href={p.href} />
+          ))}
+        </div>
+      </Section>
+
+      <Section heading="Notable artists & builders">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
           {NOTABLE_ARTISTS.map((artist) => (
             <ArtistCard key={artist} name={artist} />
@@ -38,7 +51,7 @@ export default function Home() {
       <section className="py-16 sm:py-24">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-6 text-3xl font-bold sm:text-4xl">Join the Community</h2>
+            <h2 className="mb-6 text-3xl font-bold sm:text-4xl">Join the community</h2>
             <p className="mb-8 text-base leading-relaxed sm:text-lg" style={{ color: 'var(--zao-cream-dim)' }}>
               Whether you make music, build tools, or just like what we are doing, there is a
               place for you here. Come build with us.

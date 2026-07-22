@@ -1,0 +1,32 @@
+# The ZAO
+
+> The ZAO is a web3 music community and incubator, founded in 2024 - a home where members build, ship, and graduate real products together, and where artists own their margin, data, and IP. Built on Farcaster and Base.
+
+## What it is
+
+- A community first: a home for artists, builders, and creators.
+- A place that ships: real products, built in public, that graduate to their own home when ready.
+- Web3-native and music-rooted. Not a platform play chasing scale, and not token-first - the community and the work come before any token.
+
+## What The ZAO builds
+
+- WaveWarZ - live-traded music battles on Solana with automated artist payouts.
+- COC Concertz - a recurring metaverse concert series.
+- ZAOstock - the ZAO festival, bridging a real place to an onchain community.
+- ZAO OS - the lab where ecosystem projects are built before they graduate.
+- ZABAL Games - the build-a-thon program for artists and builders.
+
+## How it works
+
+Contribution is measured by Respect: an onchain reputation on Optimism, earned through weekly participation and peer ranking, not bought. Respect is non-transferable - it is a record of contribution, and it grows a member's voice in how The ZAO is run. The ecosystem token is ZABAL, on Base, distinct from Respect.
+
+## Founder
+
+Founded by Zaal Panthaki (BetterCallZaal). The origin: getting an artist heard, and letting them keep what they make.
+
+## Links
+
+- Website: https://thezao.com
+- Farcaster: https://farcaster.xyz/~/channel/zao
+- Newsletter: https://paragraph.com/@thezao
+- Calendar: https://lu.ma/zao
