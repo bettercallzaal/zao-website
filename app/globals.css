@@ -3,20 +3,21 @@
 
 /*
   The ZAO design tokens.
-  Brand palette source: zaobrand/visual/palette.md (brand surface -> #141e27 / #e0ddaa).
-  This is a brand/marketing surface, so it uses the brand palette, not the app navy/gold.
-  Custom base styles live in @layer base so Tailwind utility classes still win.
+  Palette source: the ZAO logo - navy #022449 ground, gold #fec107 accent.
+  Token names kept (--zao-cream etc) so components don't churn; the values now
+  carry navy/gold. Custom base styles live in @layer base so Tailwind wins.
 */
 :root {
-  --zao-dark: #141e27;
-  --zao-dark-alt: #0f1520;
-  --zao-cream: #e0ddaa;
-  --zao-cream-dim: #c0bfaa;
-  --zao-cream-faint: #9d9a7f;
-  --zao-text: #ffffff;
-  --zao-border: rgba(224, 221, 170, 0.18);
-  --zao-panel: rgba(224, 221, 170, 0.05);
-  --zao-panel-hover: rgba(224, 221, 170, 0.09);
+  --zao-dark: #03182f;          /* deep navy page ground (logo navy family) */
+  --zao-dark-alt: #020f20;
+  --zao-navy: #022449;          /* logo background navy - for the logo badge */
+  --zao-cream: #f5c518;         /* brand gold - headings + accents */
+  --zao-cream-dim: #b4c0d2;     /* secondary text, light on navy */
+  --zao-cream-faint: #6f7f96;   /* tertiary / faint */
+  --zao-text: #eaf0f8;          /* primary body, near-white */
+  --zao-border: rgba(245, 197, 24, 0.18);
+  --zao-panel: rgba(245, 197, 24, 0.05);
+  --zao-panel-hover: rgba(245, 197, 24, 0.09);
 
   --zao-maxw: 72rem;
 }
