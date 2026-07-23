@@ -69,6 +69,41 @@ export default function Token() {
         </div>
       </Section>
 
+      <Section heading="The ZAO Fractal, presented">
+        <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
+          The full walkthrough of the ZAO Fractal - how earned governance actually works, in slides.
+        </p>
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            paddingTop: '56.25%',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
+            border: '1px solid var(--zao-border)',
+            backgroundColor: 'var(--zao-navy)',
+          }}
+        >
+          <iframe
+            loading="lazy"
+            title="The ZAO Fractal presentation"
+            src="https://www.canva.com/design/DAGJEYekuOI/ZvdyNadI2tWagbIjZuzx0g/view?embed"
+            allowFullScreen
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+          />
+        </div>
+        <p className="mt-3 text-sm">
+          <a
+            href="https://www.canva.com/design/DAGJEYekuOI/ZvdyNadI2tWagbIjZuzx0g/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--zao-cream)', borderBottom: '1px solid var(--zao-border)' }}
+          >
+            Open the full presentation
+          </a>
+        </p>
+      </Section>
+
       <section className="py-16 sm:py-24">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
