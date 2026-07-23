@@ -1,35 +1,37 @@
-// Live WaveWarZ stats, fetched server-side. Cached for an hour (ISR) so the
-// homepage stays fast and the numbers stay current without hardcoding them.
-// Per the brand rule: pull WaveWarZ figures live, never hardcode.
+// Live WaveWarZ stats, fetched server-side and cached hourly (ISR). Only real,
+// verifiable on-chain figures from the public API - no hardcoded or derived-USD
+// numbers (SOL volume is the honest on-chain figure; current-price USD understates it).
+// Docs: https://wavewarz.info/api-docs
 
 export type WaveWarZStats = {
-  volumeUsd: number
-  volumeSol: number
   battles: number
-  artistPayoutsUsd: number
-  updatedAt: string
+  volumeSol: number
+  artists: number
+  songs: number
+}
+
+async function j(url: string) {
+  const res = await fetch(url, { next: { revalidate: 3600 } })
+  if (!res.ok) throw new Error(String(res.status))
+  return res.json()
 }
 
 export async function getWaveWarZStats(): Promise<WaveWarZStats | null> {
   try {
-    const res = await fetch('https://wavewarz.info/api/public/stats', {
-      next: { revalidate: 3600 },
-    })
-    if (!res.ok) return null
-    const d = await res.json()
+    const [stats, artists, songs] = await Promise.all([
+      j('https://wavewarz.info/api/public/stats'),
+      j('https://wavewarz.info/api/public/leaderboards/artists'),
+      j('https://wavewarz.info/api/public/leaderboards/songs'),
+    ])
     return {
-      volumeUsd: Math.round(d?.volume?.totalUsd ?? 0),
-      volumeSol: Math.round(d?.volume?.totalSol ?? 0),
-      battles: d?.battles?.total ?? 0,
-      artistPayoutsUsd: Math.round(d?.artistPayouts?.totalUsd ?? 0),
-      updatedAt: d?.updatedAt ?? '',
+      battles: stats?.battles?.total ?? 0,
+      volumeSol: Math.round(stats?.volume?.totalSol ?? 0),
+      artists: artists?.count ?? 0,
+      songs: songs?.count ?? 0,
     }
   } catch {
     return null
   }
 }
 
-// Formatting helpers.
-export const fmtUsd = (n: number) =>
-  n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${n}`
 export const fmtNum = (n: number) => n.toLocaleString('en-US')

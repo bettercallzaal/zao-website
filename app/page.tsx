@@ -7,7 +7,7 @@ import { ArtistCard } from '@/components/ArtistCard'
 import { EcosystemCard } from '@/components/EcosystemCard'
 import { StatTile } from '@/components/StatTile'
 import { NOTABLE_ARTISTS, ECOSYSTEM } from '@/lib/constants'
-import { getWaveWarZStats, fmtUsd, fmtNum } from '@/lib/wavewarz'
+import { getWaveWarZStats, fmtNum } from '@/lib/wavewarz'
 
 const WHITEPAPER_URL = 'https://zaofractal.vercel.app/whitepaper/zao-fractal-whitepaper'
 
@@ -42,25 +42,28 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Proof - live and firm numbers */}
-      <Section heading="By the numbers">
+      {/* Proof - WaveWarZ, live on-chain (real, verifiable) */}
+      <Section heading="WaveWarZ, live on-chain">
         <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
-          Receipts, not vanity. WaveWarZ figures are pulled live from chain; the rest are the
-          current community counts.
+          Receipts, not vanity. WaveWarZ - the ecosystem's music-battle platform on Solana -
+          runs entirely on-chain. These figures are pulled live from its API.
         </p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-5">
-          <StatTile value="188" label="Community members" />
-          <StatTile value="156" label="Respect holders" />
-          {ww ? (
-            <>
-              <StatTile value={fmtNum(ww.battles)} label="WaveWarZ battles" />
-              <StatTile value={fmtUsd(ww.volumeUsd)} label="On-chain volume traded" />
-              <StatTile value={fmtUsd(ww.artistPayoutsUsd)} label="Paid to artists" />
-            </>
-          ) : (
-            <StatTile value="Live" label="WaveWarZ battles on Solana" />
-          )}
-        </div>
+        {ww ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+            <StatTile value={fmtNum(ww.battles)} label="Music battles" />
+            <StatTile value={`${fmtNum(ww.volumeSol)} SOL`} label="Traded on-chain" />
+            <StatTile value={fmtNum(ww.artists)} label="Artists competing" />
+            <StatTile value={fmtNum(ww.songs)} label="Songs battled" />
+          </div>
+        ) : (
+          <p style={{ color: 'var(--zao-cream-dim)' }}>
+            Live battle data at{' '}
+            <a href="https://wavewarz.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--zao-cream)' }}>
+              wavewarz.com
+            </a>
+            .
+          </p>
+        )}
       </Section>
 
       {/* Governance spine - the differentiator */}

@@ -38,9 +38,9 @@ export default function Community() {
               A home for artists and builders.
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed sm:text-xl" style={{ color: 'var(--zao-text)' }}>
-              The ZAO is community first - 188 members and growing. Everything we build - the
-              tools, the events, the music - serves the same idea: artists and creators who own
-              their work and grow on their own terms.
+              The ZAO is community first. Everything we build - the tools, the events, the
+              music - serves the same idea: artists and creators who own their work and grow on
+              their own terms.
             </p>
           </div>
         </Container>
