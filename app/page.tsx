@@ -7,10 +7,10 @@ import { ArtistCard } from '@/components/ArtistCard'
 import { EcosystemCard } from '@/components/EcosystemCard'
 import { StatTile } from '@/components/StatTile'
 import { NOTABLE_ARTISTS, ECOSYSTEM } from '@/lib/constants'
-import { getWaveWarZStats, fmtNum } from '@/lib/wavewarz'
+import { getWaveWarZStats, getTopArtists, fmtNum } from '@/lib/wavewarz'
 
 export default async function Home() {
-  const ww = await getWaveWarZStats()
+  const [ww, topArtists] = await Promise.all([getWaveWarZStats(), getTopArtists(5)])
 
   return (
     <main className="min-h-screen">
@@ -61,6 +61,33 @@ export default async function Home() {
             </a>
             .
           </p>
+        )}
+
+        {topArtists.length > 0 && (
+          <div className="mt-10">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--zao-cream)' }}>
+              Top of the leaderboard right now
+            </p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {topArtists.map((a, i) => (
+                <div
+                  key={a.name}
+                  className="flex items-center justify-between rounded px-4 py-3"
+                  style={{ border: '1px solid var(--zao-border)', backgroundColor: 'var(--zao-panel)' }}
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="font-bold tabular-nums" style={{ color: 'var(--zao-cream-faint)' }}>
+                      {i + 1}
+                    </span>
+                    <span style={{ color: 'var(--zao-text)' }}>{a.name}</span>
+                  </span>
+                  <span className="text-sm tabular-nums" style={{ color: 'var(--zao-cream-dim)' }}>
+                    {a.wins}W - {a.losses}L
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </Section>
 

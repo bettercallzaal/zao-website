@@ -35,3 +35,20 @@ export async function getWaveWarZStats(): Promise<WaveWarZStats | null> {
 }
 
 export const fmtNum = (n: number) => n.toLocaleString('en-US')
+
+export type WWArtist = { name: string; wins: number; losses: number }
+
+// Live top artists on the WaveWarZ battle leaderboard (real win/loss records).
+export async function getTopArtists(limit = 5): Promise<WWArtist[]> {
+  try {
+    const d = await j('https://wavewarz.info/api/public/leaderboards/artists')
+    const rows = (d?.artists ?? []) as { name?: string; wins?: number; losses?: number }[]
+    return rows
+      .map((r) => ({ name: (r.name ?? '').trim(), wins: r.wins ?? 0, losses: r.losses ?? 0 }))
+      .filter((a) => a.name)
+      .sort((a, b) => b.wins - a.wins || a.losses - b.losses)
+      .slice(0, limit)
+  } catch {
+    return []
+  }
+}
