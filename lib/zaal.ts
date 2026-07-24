@@ -6,8 +6,8 @@ export const PROFILE = {
   handle: 'bettercallzaal',
   tagline: 'Open-source builder. Founder of The ZAO, co-founder of WaveWarZ.',
   bio: 'I build the AI-agent infrastructure and creator tools that put margin, data, and IP back in independent artists’ hands. Electrical engineer by training, building in public out of Maine.',
-  // pfp pending in Brand Drop (BetterCallZaal folder). Until then, initials avatar.
-  avatar: '', // set to '/zaal.jpeg' once dropped
+  // pfp pulled from Farcaster (@zaal, fid 19640) via Neynar.
+  avatar: 'https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f9277373-2f85-411b-5d94-d8e11a43de00/original',
   initials: 'Z',
   stats: [
     { value: '80+', label: 'open-source repos' },
