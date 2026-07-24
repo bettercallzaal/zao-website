@@ -87,6 +87,7 @@ export const NEXUS: { group: string; id: string; projects: NexusProject[] }[] = 
       { name: 'The Whitepaper', blurb: 'Earned governance, verified on-chain - the full theory and mechanics.', href: '/papers', external: false },
       { name: 'Respect', blurb: 'The reputation you earn by contributing. How standing works.', href: '/zao-leaderboard', external: false },
       { name: 'The token stance', blurb: 'Community-first, not token-first. How value and contribution work.', href: '/zao-token', external: false },
+      { name: 'The brand', blurb: 'The whole brand in one place - boilerplate, glossary, voice, palette, hierarchy.', href: '/brand', external: false },
     ],
   },
   {
