@@ -53,6 +53,10 @@ export const GLOSSARY: { correct: string; wrong: string; note: string }[] = [
   { correct: 'Joseph Goats', wrong: 'Jose Goats, Jose', note: 'Rebranded from Jose.' },
   { correct: 'Tom Fellenz', wrong: 'Fellenz', note: 'Full name or just Fellenz.' },
   { correct: 'Magnetiq', wrong: 'Magnetic, MagnetIQ', note: 'Event/launch platform at magnetiq.io.' },
+  { correct: 'Stilo World', wrong: 'StiloWorld, stilo world', note: 'Two words, capitalized.' },
+  { correct: 'Thy Revolution', wrong: 'The Revolution', note: '"Thy", not "The".' },
+  { correct: 'ArDrive', wrong: 'Ardrive, ar drive', note: 'CamelCase.' },
+  { correct: 'ZAO OS / ZAOOS', wrong: 'Zao OS, zaoos', note: 'The lab / monorepo.' },
 ]
 
 export const VOICE = {
@@ -84,6 +88,48 @@ export const PALETTE = [
   { role: 'Deep navy', hex: '#03182f', use: 'Page background (a touch deeper than the logo).' },
   { role: 'Light', hex: '#eaf0f8', use: 'Body text on navy.' },
 ]
+
+// Typography scale (font-agnostic; from visual/type.md). One scale everywhere.
+export const TYPE = {
+  intro:
+    'One type scale across every surface, mobile-first. It is font-agnostic on purpose - the scale, weights, and spacing hold whatever the face ends up being (system-ui today, Space Grotesk proposed; a monospace like JetBrains Mono for numbers and on-chain values).',
+  scale: [
+    { role: 'Display / H1', size: '~3.5rem', weight: '800', note: 'Tight tracking, balanced wrap' },
+    { role: 'H2', size: '~2rem', weight: '700', note: 'Section headers' },
+    { role: 'H3', size: '~1.25rem', weight: '700', note: 'Card and sub-section titles' },
+    { role: 'Body large', size: '~1.15rem', weight: '400', note: 'Lead paragraphs' },
+    { role: 'Body', size: '~1rem', weight: '400', note: 'Default text, line-height ~1.6' },
+    { role: 'Small / caption', size: '~0.85rem', weight: '500', note: 'Labels, meta' },
+    { role: 'Eyebrow / label', size: '~0.75rem', weight: '500', note: 'Uppercase, letter-spacing ~0.18em' },
+  ],
+  rules: [
+    'One scale everywhere. No ad-hoc sizes.',
+    'Headings in gold; body in light on navy; muted for secondary.',
+    'Keep running text near 65 characters wide.',
+    'Numbers that line up (stats, tables) use tabular figures.',
+  ],
+}
+
+// Photography direction (from visual/photography.md).
+export const PHOTOGRAPHY = {
+  feel:
+    'Real, warm, and human. The ZAO is a home, not a corporation, so the photography is people and moments - artists on stage, the community together, the room at a show - not polished corporate stock. Candid over posed. Energy over perfection. If a photo looks like a stock library, it is wrong.',
+  favor: [
+    'People and community - artists, members, the team, faces.',
+    'Live moments - shows, festivals, sessions, the crowd.',
+    'The real places - the venues, the town, the spaces where it happens.',
+  ],
+  dos: [
+    'Use real photos of real people and events.',
+    'Caption in the brand voice; credit where owed.',
+    'Grade lightly toward warm; let the photo be the color.',
+  ],
+  donts: [
+    'No generic stock.',
+    'No heavy filters that crush the image.',
+    'Never publish a photo of someone without the ok, or state unconfirmed detail in a caption.',
+  ],
+}
 
 export const HIERARCHY = {
   umbrella: [

@@ -3,7 +3,7 @@ import { Nav } from '@/components/Nav'
 import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
-import { WHAT_IS, BOILERPLATE, GLOSSARY, VOICE, PALETTE, HIERARCHY } from '@/lib/brand'
+import { WHAT_IS, BOILERPLATE, GLOSSARY, VOICE, PALETTE, TYPE, PHOTOGRAPHY, HIERARCHY } from '@/lib/brand'
 
 export const metadata: Metadata = {
   title: 'Brand - The ZAO',
@@ -207,6 +207,79 @@ export default function Brand() {
               <div className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--zao-cream-faint)' }}>{c.use}</div>
             </div>
           ))}
+        </div>
+      </Section>
+
+      {/* Typography */}
+      <Section heading="Typography">
+        <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
+          {TYPE.intro}
+        </p>
+        <div className="overflow-x-auto rounded-lg" style={{ border: '1px solid var(--zao-border)' }}>
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--zao-border)' }}>
+                <th className="p-3 font-semibold" style={{ color: 'var(--zao-cream)' }}>Role</th>
+                <th className="p-3 font-semibold" style={{ color: 'var(--zao-cream-dim)' }}>Size</th>
+                <th className="p-3 font-semibold" style={{ color: 'var(--zao-cream-dim)' }}>Weight</th>
+                <th className="p-3 font-semibold" style={{ color: 'var(--zao-cream-faint)' }}>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {TYPE.scale.map((t) => (
+                <tr key={t.role} style={{ borderTop: '1px solid var(--zao-border)' }}>
+                  <td className="whitespace-nowrap p-3 font-bold" style={{ color: 'var(--zao-cream)' }}>{t.role}</td>
+                  <td className="whitespace-nowrap p-3 font-mono" style={{ color: 'var(--zao-cream-dim)' }}>{t.size}</td>
+                  <td className="p-3" style={{ color: 'var(--zao-cream-dim)' }}>{t.weight}</td>
+                  <td className="p-3" style={{ color: 'var(--zao-cream-faint)' }}>{t.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <ul className="mt-6 space-y-2">
+          {TYPE.rules.map((r) => (
+            <li key={r} className="text-sm leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>{r}</li>
+          ))}
+        </ul>
+      </Section>
+
+      {/* Photography */}
+      <Section heading="Photography">
+        <p className="-mt-4 mb-8 max-w-2xl leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
+          {PHOTOGRAPHY.feel}
+        </p>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div>
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--zao-cream)' }}>
+              Favor
+            </p>
+            <ul className="space-y-2">
+              {PHOTOGRAPHY.favor.map((x) => (
+                <li key={x} className="text-sm leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>{x}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--zao-cream)' }}>
+              Do
+            </p>
+            <ul className="space-y-2">
+              {PHOTOGRAPHY.dos.map((x) => (
+                <li key={x} className="text-sm leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>{x}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--zao-cream-faint)' }}>
+              Don't
+            </p>
+            <ul className="space-y-2">
+              {PHOTOGRAPHY.donts.map((x) => (
+                <li key={x} className="text-sm leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>{x}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Section>
 
