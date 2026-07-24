@@ -5,6 +5,7 @@ import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { NEXUS, ONBOARDING } from '@/lib/nexus'
+import { MEMBERS } from '@/lib/members'
 
 export const metadata: Metadata = {
   title: 'Nexus - The ZAO',
@@ -118,6 +119,34 @@ export default function Nexus() {
           </div>
         </Section>
       ))}
+
+      {/* The people - living member profiles */}
+      <Section heading="The people">
+        <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
+          Living profiles of the community - Fractal Respect earners, refreshed with their work.
+          Each one pulls straight from Farcaster.
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          <CardLink href="/zaal" external={false}>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--zao-cream)' }}>
+              Zaal Panthaki
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed sm:text-base" style={{ color: 'var(--zao-cream-dim)' }}>
+              Open-source builder. Founder of The ZAO.
+            </p>
+          </CardLink>
+          {MEMBERS.map((m) => (
+            <CardLink key={m.handle} href={`/${m.handle}`} external={false}>
+              <h3 className="text-lg font-bold" style={{ color: 'var(--zao-cream)' }}>
+                {m.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed sm:text-base" style={{ color: 'var(--zao-cream-dim)' }}>
+                {m.role}
+              </p>
+            </CardLink>
+          ))}
+        </div>
+      </Section>
 
       <Footer />
     </main>
