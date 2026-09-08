@@ -274,7 +274,7 @@ export default function Brand() {
           </div>
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--zao-cream-faint)' }}>
-              Don't
+              Don&apos;t
             </p>
             <ul className="space-y-2">
               {PHOTOGRAPHY.donts.map((x) => (

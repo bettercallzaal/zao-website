@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+
+      # The guard. Every failure this site has shipped was SILENT - the build
+      # stayed green and the pages returned 200 while the defect went live. The
+      # steps above cannot see any of them, which is the entire reason this one
+      # exists. It must run against a SERVED build, not the source.
+      - name: Start the production build
+        run: |
+          npx next start -p 3000 &
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://localhost:3000/ && break
+            sleep 1
+          done
+      - name: Guard against silent regressions
+        run: npm run check:site http://localhost:3000
+
+# NOT RUN HERE, recorded rather than quietly skipped:
+#   npm run lint:biome  - biome is not installed; the script is dead. Pre-existing,
+#                         not introduced here, and not worth installing a second
+#                         linter when eslint now works.
