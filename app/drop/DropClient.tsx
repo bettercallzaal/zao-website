@@ -39,6 +39,10 @@ export function DropClient() {
   }, [])
 
   useEffect(() => {
+    // Fetch-on-mount. The setState calls happen after an await inside load(), not
+    // synchronously during the effect, so this is not the re-render loop the rule
+    // guards against. Disabled here rather than restructuring working upload code.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load()
   }, [load])
 

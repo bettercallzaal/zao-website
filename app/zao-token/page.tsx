@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
@@ -50,13 +51,13 @@ export default function Token() {
             you earn a voice in how The ZAO is run.
           </p>
           <p>
-            <a
+            <Link
               href="/zao-leaderboard"
               className="inline-block text-base font-medium"
               style={{ color: 'var(--zao-cream)', borderBottom: '1px solid var(--zao-border)' }}
             >
               See how Respect works
-            </a>
+            </Link>
           </p>
         </div>
       </Section>

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
@@ -43,7 +44,7 @@ export default async function Home() {
       {/* Proof - WaveWarZ, live on-chain (real, verifiable) */}
       <Section heading="WaveWarZ, live on-chain">
         <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
-          Receipts, not vanity. WaveWarZ - the ecosystem's music-battle platform on Solana -
+          Receipts, not vanity. WaveWarZ - the ecosystem&apos;s music-battle platform on Solana -
           runs entirely on-chain. These figures are pulled live from its API.
         </p>
         {ww ? (
@@ -119,7 +120,7 @@ export default async function Home() {
       <Section heading="What we build">
         <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
           Everything under the umbrella serves the same idea. Each is its own project, built in
-          the open. See them all in the <a href="/nexus" style={{ color: 'var(--zao-cream)' }}>Nexus</a>.
+          the open. See them all in the <Link href="/nexus" style={{ color: 'var(--zao-cream)' }}>Nexus</Link>.
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {ECOSYSTEM.map((p) => (
