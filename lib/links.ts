@@ -42,13 +42,13 @@ export const LINK_GROUPS: LinkGroup[] = [
   },
   {
     heading: 'Collect & support',
-    note: 'Every one of these leaves our site for a platform we do not host.',
+    note: 'Every one of these leaves this site. Most go to platforms we do not host; Donate goes to our own ZAOstock site.',
     links: [
       { name: 'ZAO Cards', blurb: 'Digital collectibles, ZAO-PALOOZA edition.', href: 'https://zao.cards', offsite: true },
       { name: 'Merch', blurb: 'Shirts and the rest.', href: 'https://merch.zaofestivals.com', offsite: true },
       { name: 'Music minting', blurb: 'Community music, minted onchain.', href: 'https://song.zaofestivals.com', offsite: true },
       { name: 'MemeBook', blurb: 'Put it on a shirt.', href: 'https://zao.lol', offsite: true },
-      { name: 'Donate', blurb: 'Fund the festival and the community work.', href: 'https://donate.zaofestivals.com', offsite: true },
+      { name: 'Donate', blurb: 'Fund the festival and the community work.', href: 'https://zaostock.com/donate', offsite: true },
     ],
   },
   {
