@@ -32,13 +32,23 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
+    inputs:
+      site_url:
+        description: >-
+          Override the site to check. Exists so the ALERT PATH can be tested on
+          demand - point it at a host that fails and confirm an issue is opened.
+          An alerting branch that has never executed is an inverted alarm.
+        required: false
+        default: ''
 
 permissions:
   contents: read
   issues: write
 
 env:
-  SITE_URL: https://test.thezao.com
+  # The dispatch input wins when given, so the failure path is testable without
+  # breaking the real site.
+  SITE_URL: ${{ inputs.site_url != '' && inputs.site_url || 'https://test.thezao.com' }}
 
 jobs:
   guard:
