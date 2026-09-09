@@ -16,6 +16,11 @@
  *      job. 25 of the 81 were missing and no crawl could find them, because
  *      nothing on the site links to them.
  *
+ *   4. The site's OWN public API breaks or freezes. /api-docs advertises four
+ *      endpoints, and until 2026-09-09 nothing in this lane had ever fetched
+ *      them. A JSON route can 500, or keep answering 200 with a frozen
+ *      `updatedAt`, without a single page looking wrong.
+ *
  * Usage:  node scripts/check-site.mjs [baseUrl]      (default http://localhost:3000)
  *         npm run check:site
  *
@@ -162,6 +167,71 @@ async function checkWebflowParity() {
   )
 }
 
+// ---------------------------------------------------------------- check 4
+// The site's own public API must answer, be valid JSON, and not be frozen.
+//
+// WHAT IT ASSERTS AND WHY EACH PART EARNS ITS PLACE. 200 alone is nearly
+// worthless here - a route that answers 200 with stale or malformed JSON looks
+// identical to a healthy one from the outside, which is the same failure the
+// other three checks exist for. So: the route answers 200, the body parses as
+// JSON, it carries an `updatedAt`, and that timestamp is neither in the future
+// nor older than MAX_AGE_H.
+//
+// WHY 24 HOURS AND NOT SOMETHING TIGHTER. The data revalidates hourly, so a
+// healthy feed is minutes old - it was 1.5 minutes when this was written. But
+// this guard also runs from a cron that GitHub delays by hours, so a tight
+// threshold would fire on the scheduler rather than on the site. 24h is loose
+// enough never to flap and still catches the thing that matters: a feed that has
+// genuinely stopped updating.
+//
+// WHAT IS DELIBERATELY *NOT* CHECKED: agreement with upstream wavewarz.info.
+// Comparing our proxy against theirs is a genuinely better check - a proxy can be
+// fresh and wrong, and that comparison was run by hand on 2026-09-09 (both said
+// volume.totalSol = 923.1038). But wiring it in here would make OUR alarm fire
+// during THEIR outage, and an alarm that cries about someone else's site is one
+// people learn to ignore. Worth running by hand when the numbers look off.
+const API_ROUTES = ['/api/public', '/api/public/events', '/api/public/stats', '/api/public/wavewarz']
+const MAX_AGE_H = 24
+
+async function checkPublicApi() {
+  let ok = 0
+  for (const path of API_ROUTES) {
+    const { status, html } = await body(path)
+    if (status !== 200) {
+      fail('public-api', `${path} returned ${status}. It is advertised on /api-docs.`)
+      continue
+    }
+    let data
+    try {
+      data = JSON.parse(html)
+    } catch {
+      fail('public-api', `${path} returned 200 but the body is not valid JSON.`)
+      continue
+    }
+    const updatedAt = data && typeof data === 'object' ? data.updatedAt : undefined
+    if (!updatedAt) {
+      fail('public-api', `${path} has no updatedAt, so staleness cannot be detected.`)
+      continue
+    }
+    const t = Date.parse(updatedAt)
+    if (Number.isNaN(t)) {
+      fail('public-api', `${path} has an unparseable updatedAt: ${updatedAt}`)
+      continue
+    }
+    const ageH = (Date.now() - t) / 3_600_000
+    if (ageH > MAX_AGE_H) {
+      fail('public-api', `${path} is FROZEN - updatedAt ${updatedAt} is ${ageH.toFixed(1)}h old (max ${MAX_AGE_H}h). It still answers 200.`)
+      continue
+    }
+    if (ageH < -0.25) {
+      fail('public-api', `${path} has updatedAt in the future: ${updatedAt}`)
+      continue
+    }
+    ok++
+  }
+  notes.push(`public api: ${ok}/${API_ROUTES.length} answer 200 with fresh, parseable JSON`)
+}
+
 // ---------------------------------------------------------------- run
 const { status: smStatus, html: smXml } = await body('/sitemap.xml')
 if (smStatus !== 200) {
@@ -176,6 +246,7 @@ console.log(`checking ${BASE} - ${routes.length} sitemap routes\n`)
 await checkOgImages(routes)
 await checkSitemapCoverage(routes)
 await checkWebflowParity()
+await checkPublicApi()
 
 for (const n of notes) console.log(`  ${n}`)
 console.log('')
