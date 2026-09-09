@@ -23,9 +23,11 @@
 #   - Cron is best-effort; runs get delayed or skipped under load.
 #   - It opens an issue. It does not wake anyone. If the reveal needs a pager,
 #     this is not it.
-#   - It checks test.thezao.com. After the DNS cutover the real address is
-#     thezao.com and SITE_URL below must be updated, or this will keep
-#     cheerfully passing against a host nobody visits any more.
+#   - It FOLLOWS THE CUTOVER on its own. Before the DNS switch it watches
+#     test.thezao.com; once thezao.com is provably the new site it watches that
+#     instead. This used to be a documented manual step, which is another way of
+#     saying it would have been forgotten - leaving the watch passing forever
+#     against a host nobody visits.
 name: Uptime
 
 on:
@@ -46,9 +48,9 @@ permissions:
   issues: write
 
 env:
-  # The dispatch input wins when given, so the failure path is testable without
-  # breaking the real site.
-  SITE_URL: ${{ inputs.site_url != '' && inputs.site_url || 'https://test.thezao.com' }}
+  # A dispatch input always wins, so the failure path stays testable without
+  # breaking the real site. Otherwise the host is DETECTED - see the step below.
+  SITE_URL_OVERRIDE: ${{ inputs.site_url }}
 
 jobs:
   guard:
@@ -59,8 +61,39 @@ jobs:
         with:
           node-version: 22
 
+      # Pick the host to watch. Conservative on purpose: production is only
+      # chosen when it is PROVABLY the new site, not merely reachable. Two
+      # independent signals must agree - no x-wf-region header (Webflow is gone)
+      # and a sitemap.xml that answers 200 (the Next app is really there).
+      # Measured 2026-09-08: thezao.com gives x-wf-region=2 and sitemap 404, so
+      # today this resolves to test.thezao.com.
+      - name: Decide which host to watch
+        id: host
+        run: |
+          set -uo pipefail
+          if [ -n "${SITE_URL_OVERRIDE:-}" ]; then
+            echo "url=$SITE_URL_OVERRIDE" >> "$GITHUB_OUTPUT"
+            echo "Overridden by dispatch input: $SITE_URL_OVERRIDE"
+            exit 0
+          fi
+          PROD="https://thezao.com"
+          TEST="https://test.thezao.com"
+          CODE="$(curl -sS -o /dev/null -L --max-time 20 -w '%{http_code}' "$PROD" || echo 000)"
+          WF="$(curl -sSI -L --max-time 20 "$PROD" 2>/dev/null | grep -ci '^x-wf-region' || true)"
+          SM="$(curl -sS -o /dev/null -L --max-time 20 -w '%{http_code}' "$PROD/sitemap.xml" || echo 000)"
+          echo "thezao.com: code=$CODE x-wf-region=$WF sitemap=$SM"
+          if [ "$CODE" = "200" ] && [ "$WF" = "0" ] && [ "$SM" = "200" ]; then
+            echo "url=$PROD" >> "$GITHUB_OUTPUT"
+            echo "Cutover detected - watching PRODUCTION $PROD"
+          else
+            echo "url=$TEST" >> "$GITHUB_OUTPUT"
+            echo "Still on Webflow - watching $TEST"
+          fi
+
       - name: Run the site guard against the live site
         id: check
+        env:
+          SITE_URL: ${{ steps.host.outputs.url }}
         run: |
           # GitHub runs `run:` under `bash -e`, so a failing pipeline kills the
           # step immediately. That is exactly the case we care about, and it was
@@ -86,6 +119,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           OUT: ${{ steps.check.outputs.out }}
+          SITE_URL: ${{ steps.host.outputs.url }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
