@@ -38,3 +38,8 @@ yarn-error.log*
 *~
 .gstack/
 .vercel
+
+# TypeScript incremental build cache - generated, not source. It was tracked
+# until 2026-09-09, churning a one-line diff on every build and breaking
+# ff-only pulls for anyone who had built locally.
+*.tsbuildinfo

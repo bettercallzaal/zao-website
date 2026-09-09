@@ -356,3 +356,20 @@ export const WEBFLOW_DROPS: WebflowDrop[] = [
 export function dropBySlug(slug: string) {
   return WEBFLOW_DROPS.find((d) => d.slug === slug)
 }
+
+/**
+ * Every one of the 17 releases is Jango UU's. That is verified, not assumed: the
+ * page bodies name him, including the four whose slugs do not say "djangos"
+ * (dual-wield, sunrider, south-of-the-city, ragepop-reimagined), and the Webflow
+ * /music-releases index listed exactly these 17 and named no other artist.
+ *
+ * It is a single constant rather than a field on every row because inventing a
+ * per-release artist field would imply this file already handles several artists.
+ * It does not. If another artist's releases are ever added, this becomes a field
+ * and the profile lookup below changes with it.
+ */
+export const DROPS_ARTIST_SLUG = 'jango-uu'
+
+export function hasDrops(memberSlug: string) {
+  return memberSlug === DROPS_ARTIST_SLUG && WEBFLOW_DROPS.length > 0
+}

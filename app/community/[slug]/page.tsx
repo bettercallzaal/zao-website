@@ -6,6 +6,7 @@ import { Nav } from '@/components/Nav'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { WEBFLOW_MEMBERS, categorySlug } from '@/lib/webflowMembers'
+import { WEBFLOW_DROPS, hasDrops } from '@/lib/webflowDrops'
 
 // Only the 43 carried-over profiles render; everything else 404s.
 export const dynamicParams = false
@@ -87,6 +88,15 @@ export default async function CommunityProfile({
                 </Link>
               )}
               <h1 className="text-4xl font-bold leading-tight sm:text-6xl">{m.name}</h1>
+              {hasDrops(m.slug) && (
+                <Link
+                  href="/music-releases"
+                  className="inline-block text-sm underline underline-offset-4 transition-opacity hover:opacity-70"
+                  style={{ color: 'var(--zao-cream-dim)' }}
+                >
+                  {WEBFLOW_DROPS.length} releases
+                </Link>
+              )}
               {m.website && (
                 <a
                   href={m.website}
