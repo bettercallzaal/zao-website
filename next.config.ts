@@ -25,36 +25,21 @@ const nextConfig: NextConfig = {
       // index rather than by crawling. They are LIVE today and 404 the moment
       // DNS moves.
       //
-      // TEMPORARY on purpose - soft landings, not final homes. The 17 /drops
-      // pages are Jango UU's release archive, 2,162 words of real editorial, and
-      // sending them to his profile keeps the URLs alive without claiming the
-      // content moved there. If it is ever ported, these come out; a permanent
-      // redirect would cache hard and outlive that choice. Full text and images
-      // are preserved in the offline archive either way.
-      { source: '/drops/djangos-10th-release-never-been-the-same-since', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-11th-release-game-in-2023', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-12th-release-talkin-fly', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-3rd-release-alice', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-4th-release-gucci-shit', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-5th-release-your-perception-my-reality', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-6th-release-and-first-album-ragepop', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-7th-release-let-them-hoes-rock', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-8th-release-want-it-like-me-', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-9th-release-bezos', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-first-music-video-gucci-shit', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-first-release-wide-awake-3-track', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/djangos-second-release-reads-n-replies', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/dual-wield', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/ragepop-reimagined', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/south-of-the-city', destination: '/community/jango-uu', permanent: false },
-      { source: '/drops/sunrider', destination: '/community/jango-uu', permanent: false },
+      // The 17 /drops pages and /music-releases are now REAL PAGES, not
+      // redirects - see lib/webflowDrops.ts. The comment that used to sit here
+      // said these soft landings came out if the content was ever ported. It
+      // was, so they have. /oldpages/music-releases still redirects, to the
+      // ported index rather than to an artist profile.
+      //
+      // The remaining redirects stay temporary: /blog-categories/* were Webflow
+      // CMS taxonomy pages with no equivalent here, and a permanent redirect
+      // would cache hard and outlive that choice.
       { source: '/blog-categories/3-track', destination: '/community', permanent: false },
       { source: '/blog-categories/album', destination: '/community', permanent: false },
       { source: '/blog-categories/ep', destination: '/community', permanent: false },
       { source: '/blog-categories/single', destination: '/community', permanent: false },
       { source: '/blog-categories/video', destination: '/community', permanent: false },
-      { source: '/music-releases', destination: '/community/jango-uu', permanent: false },
-      { source: '/oldpages/music-releases', destination: '/community/jango-uu', permanent: false },
+      { source: '/oldpages/music-releases', destination: '/music-releases', permanent: false },
       ...WEBFLOW_MEMBERS.map((m) => ({
         source: `/artists/${m.slug}`,
         destination: `/community/${m.slug}`,

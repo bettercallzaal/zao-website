@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { MEMBERS } from '@/lib/members'
 import { WEBFLOW_MEMBERS, ARTIST_CATEGORIES } from '@/lib/webflowMembers'
+import { WEBFLOW_DROPS } from '@/lib/webflowDrops'
 
 const BASE = 'https://thezao.com'
 
@@ -21,6 +22,7 @@ const ROUTES = [
   '/links',
   '/ai',
   '/api-docs',
+  '/music-releases',
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -47,5 +49,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 0.5,
   }))
-  return [...core, ...members, ...community, ...categories]
+  // Jango UU's 17 release pages, ported from Webflow. They were live there and
+  // linked from nothing, so they were absent from search as well as from the
+  // site's own navigation; listing them here is the first time they are
+  // discoverable at all.
+  const drops = WEBFLOW_DROPS.map((d) => ({
+    url: `${BASE}/drops/${d.slug}`,
+    changeFrequency: 'yearly' as const,
+    priority: 0.4,
+  }))
+  return [...core, ...members, ...community, ...categories, ...drops]
 }
