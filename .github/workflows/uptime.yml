@@ -1,0 +1,108 @@
+# Scheduled check of the LIVE site.
+#
+# WHY THIS EXISTS, separately from the CI guard. `ci.yml` runs the same guard,
+# but only when code changes, and only against a build on localhost. Between
+# merges nothing watches the deployed site at all - so a break that comes from
+# OUTSIDE the code would go unnoticed until someone looked by hand. With the
+# reveal on 13 September and possibly no more commits before it, "nobody looked"
+# is the likely state, not the unlikely one.
+#
+# WHAT IT ASSERTS, and the second half matters as much as the first. Following
+# the pattern in ZAODEVZ/ZAOstock's uptime.yml, whose lesson was that a
+# wrong-but-reachable database answers 200 with an empty array: reachable is not
+# the same as correct. So this does not ping the homepage - it runs the full
+# guard against the live site, which fails if:
+#   - any page is missing its og:image (the share card breaks silently)
+#   - a linked page is absent from the sitemap
+#   - any of the 81 live Webflow URLs stops resolving
+# All three return 200 pages while being wrong, which is the point.
+#
+# CAVEATS, so nobody trusts this further than it goes:
+#   - GitHub disables scheduled workflows after ~60 days without repository
+#     activity. If this repo goes quiet that long, check the Actions tab.
+#   - Cron is best-effort; runs get delayed or skipped under load.
+#   - It opens an issue. It does not wake anyone. If the reveal needs a pager,
+#     this is not it.
+#   - It checks test.thezao.com. After the DNS cutover the real address is
+#     thezao.com and SITE_URL below must be updated, or this will keep
+#     cheerfully passing against a host nobody visits any more.
+name: Uptime
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  SITE_URL: https://test.thezao.com
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Run the site guard against the live site
+        id: check
+        run: |
+          set -uo pipefail
+          OUT_FILE="$(mktemp)"
+          node scripts/check-site.mjs "$SITE_URL" 2>&1 | tee "$OUT_FILE"
+          STATUS="${PIPESTATUS[0]}"
+          OUT="$(head -c 4000 "$OUT_FILE")"
+          {
+            echo "status=$STATUS"
+            echo "out<<OUT_EOF"
+            echo "$OUT"
+            echo "OUT_EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit "$STATUS"
+
+      - name: Open an issue if the live site is failing
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OUT: ${{ steps.check.outputs.out }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          TITLE="Uptime: the live site is failing the guard"
+
+          # One open issue at a time. A check on a schedule must never turn an
+          # outage into a stream of issues, and re-filing on a break nobody has
+          # fixed yet adds nothing.
+          EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "\"$TITLE\" in:title" --json number --jq 'length')"
+          if [ "$EXISTING" != "0" ]; then
+            echo "Already tracked in an open issue. Not filing another."
+            exit 0
+          fi
+
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$(cat <<EOF
+The scheduled guard failed against \`$SITE_URL\`.
+
+This does not mean the site is down - it means it is **reachable but wrong** in
+one of the ways that returns 200 while being broken: a missing \`og:image\`, a
+linked page absent from the sitemap, or one of the 81 live Webflow URLs no
+longer resolving.
+
+\`\`\`
+$OUT
+\`\`\`
+
+Run: $RUN_URL
+
+Reproduce locally:
+
+\`\`\`sh
+node scripts/check-site.mjs $SITE_URL
+\`\`\`
+EOF
+)"
