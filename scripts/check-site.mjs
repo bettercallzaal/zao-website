@@ -110,6 +110,24 @@ async function checkSitemapCoverage(routes) {
 
 // ---------------------------------------------------------------- check 3
 // Every URL the Webflow site answers must resolve or redirect here.
+//
+// WHAT THIS PROVES, AND THE LINE IT DOES NOT CROSS. It proves NO DEAD URL: after
+// the cutover, nothing that Webflow answers today starts 404ing. It does NOT
+// prove the content survived, because a redirect to any 200 counts as a pass -
+// including a redirect to a page that carries none of the original content.
+//
+// That gap is real on this site, not hypothetical. The 17 `/drops/*` pages each
+// carried an editorial writeup of a release (14 of them past 120 words). They
+// redirect to `/community/jango-uu`, which is the right target - they are all
+// Jango UU releases, and the OLD Webflow profile linked to `/drops/` zero times,
+// so nothing regressed - but that page contains none of the 14 release titles,
+// and the replacement has no release surface at all. This check passes them, and
+// should: the URLs are alive. Someone arriving from a shared `/drops/sunrider`
+// link still lands on a page that never says SUNRIDER.
+//
+// So do not read a green parity line as "the migration lost nothing". The only
+// full copy of those writeups is the archive at `~/Desktop/repos/thezao-com`.
+// Measuring content equivalence would need a different check than this one.
 async function checkWebflowParity() {
   const file = join(HERE, 'webflow-live-urls.json')
   const { urls, count } = JSON.parse(readFileSync(file, 'utf8'))
@@ -138,7 +156,10 @@ async function checkWebflowParity() {
       `${path} returns ${status}. This URL is LIVE on the Webflow site - it breaks at cutover.`,
     )
   }
-  notes.push(`webflow parity: ${ok}/${urls.length} resolve or redirect to a 200`)
+  notes.push(
+    `webflow parity: ${ok}/${urls.length} resolve or redirect to a 200 ` +
+      `(no dead URL - NOT a claim that content was preserved; see the comment above)`,
+  )
 }
 
 // ---------------------------------------------------------------- run
