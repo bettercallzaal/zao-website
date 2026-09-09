@@ -85,24 +85,16 @@ jobs:
             exit 0
           fi
 
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$(cat <<EOF
-The scheduled guard failed against \`$SITE_URL\`.
+          BODY_FILE="$(mktemp)"
+          {
+            printf '%s\n\n' "The scheduled guard failed against \`$SITE_URL\`."
+            printf '%s\n' "This does not mean the site is down - it means it is **reachable but wrong**"
+            printf '%s\n\n' "in one of the ways that returns 200 while being broken: a missing og:image, a"
+            printf '%s\n\n' "linked page absent from the sitemap, or one of the 81 live Webflow URLs gone."
+            printf '```\n%s\n```\n\n' "$OUT"
+            printf '%s\n\n' "Run: $RUN_URL"
+            printf '%s\n\n' "Reproduce locally:"
+            printf '```sh\nnode scripts/check-site.mjs %s\n```\n' "$SITE_URL"
+          } > "$BODY_FILE"
 
-This does not mean the site is down - it means it is **reachable but wrong** in
-one of the ways that returns 200 while being broken: a missing \`og:image\`, a
-linked page absent from the sitemap, or one of the 81 live Webflow URLs no
-longer resolving.
-
-\`\`\`
-$OUT
-\`\`\`
-
-Run: $RUN_URL
-
-Reproduce locally:
-
-\`\`\`sh
-node scripts/check-site.mjs $SITE_URL
-\`\`\`
-EOF
-)"
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file "$BODY_FILE"
