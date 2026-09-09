@@ -62,10 +62,16 @@ jobs:
       - name: Run the site guard against the live site
         id: check
         run: |
+          # GitHub runs `run:` under `bash -e`, so a failing pipeline kills the
+          # step immediately. That is exactly the case we care about, and it was
+          # aborting before the output could be captured - the alert fired with
+          # an empty diagnostic block. Disable -e around the pipeline only.
           set -uo pipefail
+          set +e
           OUT_FILE="$(mktemp)"
           node scripts/check-site.mjs "$SITE_URL" 2>&1 | tee "$OUT_FILE"
           STATUS="${PIPESTATUS[0]}"
+          set -e
           OUT="$(head -c 4000 "$OUT_FILE")"
           {
             echo "status=$STATUS"
@@ -98,9 +104,9 @@ jobs:
           BODY_FILE="$(mktemp)"
           {
             printf '%s\n\n' "The scheduled guard failed against \`$SITE_URL\`."
-            printf '%s\n' "This does not mean the site is down - it means it is **reachable but wrong**"
-            printf '%s\n\n' "in one of the ways that returns 200 while being broken: a missing og:image, a"
-            printf '%s\n\n' "linked page absent from the sitemap, or one of the 81 live Webflow URLs gone."
+            printf '%s ' "This does not mean the site is down - it means it is **reachable but wrong**"
+            printf '%s ' "in one of the ways that returns 200 while being broken: a missing og:image,"
+            printf '%s\n\n' "a linked page absent from the sitemap, or one of the 81 live Webflow URLs gone."
             printf '```\n%s\n```\n\n' "$OUT"
             printf '%s\n\n' "Run: $RUN_URL"
             printf '%s\n\n' "Reproduce locally:"
