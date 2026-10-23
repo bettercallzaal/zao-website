@@ -9,7 +9,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:biome": "biome check .",
     "typecheck": "tsc --noEmit",
-    "check:site": "node scripts/check-site.mjs"
+    "check:site": "node scripts/check-site.mjs",
+    "check:cutover": "bash scripts/check-cutover.sh"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.109.0",
