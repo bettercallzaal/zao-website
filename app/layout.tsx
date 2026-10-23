@@ -50,7 +50,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#141e27" />
+        <meta name="theme-color" content="#03182f" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

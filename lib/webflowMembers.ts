@@ -8,6 +8,9 @@
 //   no bio:      joseph-goats, stilo
 // Photos live in /public/members/<slug> and are served from this repo, so they
 // survive the Webflow plan lapsing.
+//
+// Added after the carry-over, not from Webflow:
+//   iman-afrikah (2026-10-23): bio is his X bio, photo is his X profile picture.
 
 // LINK AUDIT - 2026-09-07. All 183 outbound links below were fetched. 170 returned
 // 200. The 13 that did not are listed here rather than silently deleted: these are
@@ -399,6 +402,21 @@ export const WEBFLOW_MEMBERS: WebflowMember[] = [
       'He is a Father First, Battler, and Recording Artist just looking to resonate with the people who miss the golden era.',
     ],
     socials: [],
+  },
+  {
+    slug: 'iman-afrikah',
+    name: 'IMan Afrikah',
+    category: 'Musician',
+    website: 'https://www.songchainn.xyz',
+    photo: '/members/iman-afrikah.jpg',
+    bio: [
+      'Musician | Founder @SongChainn | Dev Lead @thezaodao | Co-Founder & Dev @WaveWarzAfrica',
+      'Based in Zambia.',
+    ],
+    socials: [
+      { label: 'X', url: 'https://x.com/Imanafrikah' },
+      { label: 'Telegram', url: 'https://t.me/Imanafrikah' },
+    ],
   },
   {
     slug: 'izmpande',
