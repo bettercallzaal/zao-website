@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Container } from '@/components/Container'
@@ -5,6 +6,8 @@ import { Footer } from '@/components/Footer'
 
 // A ZAO 404 instead of the bare Next.js one. Matters once thezao.com moves off Webflow: old
 // links people saved will land here, so it points them to the pages most people want.
+export const metadata: Metadata = { title: 'Page not found - The ZAO' }
+
 export default function NotFound() {
   return (
     <main className="min-h-screen">
