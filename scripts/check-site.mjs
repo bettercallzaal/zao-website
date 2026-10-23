@@ -109,7 +109,8 @@ async function checkSitemapCoverage(routes) {
     if (status !== 200) continue
     for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) seen.add(m[1] || '/')
   }
-  const isAsset = (p) => /\.(png|jpe?g|svg|ico|webp|css|js|txt|xml)$/i.test(p) || p.startsWith('/_next/')
+  // webmanifest: the phone manifest (#58) is a <link rel="manifest">, not a page.
+  const isAsset = (p) => /\.(png|jpe?g|svg|ico|webp|css|js|txt|xml|webmanifest)$/i.test(p) || p.startsWith('/_next/')
   const missing = [...seen].filter((p) => !isAsset(p) && !routes.includes(p)).sort()
   for (const p of missing) {
     const { status } = await head(p)
