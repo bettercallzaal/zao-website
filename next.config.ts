@@ -31,14 +31,17 @@ const nextConfig: NextConfig = {
       // was, so they have. /oldpages/music-releases still redirects, to the
       // ported index rather than to an artist profile.
       //
-      // The remaining redirects stay temporary: /blog-categories/* were Webflow
-      // CMS taxonomy pages with no equivalent here, and a permanent redirect
-      // would cache hard and outlive that choice.
-      { source: '/blog-categories/3-track', destination: '/community', permanent: false },
-      { source: '/blog-categories/album', destination: '/community', permanent: false },
-      { source: '/blog-categories/ep', destination: '/community', permanent: false },
-      { source: '/blog-categories/single', destination: '/community', permanent: false },
-      { source: '/blog-categories/video', destination: '/community', permanent: false },
+      // /blog-categories/* were Webflow's release-type listings (3-track, album,
+      // EP, single, video), each a list of /drops pages. They used to land on
+      // /community because nothing here listed releases; the ported
+      // /music-releases index does, so they land there. There is no per-type
+      // filter on it yet. They stay temporary: a permanent redirect would cache
+      // hard and outlive that choice.
+      { source: '/blog-categories/3-track', destination: '/music-releases', permanent: false },
+      { source: '/blog-categories/album', destination: '/music-releases', permanent: false },
+      { source: '/blog-categories/ep', destination: '/music-releases', permanent: false },
+      { source: '/blog-categories/single', destination: '/music-releases', permanent: false },
+      { source: '/blog-categories/video', destination: '/music-releases', permanent: false },
       { source: '/oldpages/music-releases', destination: '/music-releases', permanent: false },
 
       // Webflow answers both with a 301 today, measured 2026-10-20 with curl on
