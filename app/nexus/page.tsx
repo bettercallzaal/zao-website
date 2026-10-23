@@ -56,6 +56,20 @@ export default function Nexus() {
             <p className="max-w-2xl text-lg leading-relaxed sm:text-xl" style={{ color: 'var(--zao-text)' }}>
               Scroll the whole ecosystem below, or start with what you came for.
             </p>
+            {/* The Webflow /nexus page embedded this hub; it stays reachable as a link. */}
+            <p className="text-sm" style={{ color: 'var(--zao-cream-dim)' }}>
+              Looking for the original links hub?{' '}
+              <a
+                href="https://zaonexus.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 transition-opacity hover:opacity-70"
+                style={{ color: 'var(--zao-cream)' }}
+              >
+                Open ZAO NEXUS
+              </a>
+              .
+            </p>
           </div>
         </Container>
       </section>
