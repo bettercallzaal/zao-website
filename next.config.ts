@@ -58,6 +58,17 @@ const nextConfig: NextConfig = {
       })),
     ]
   },
+  // Zaal, grill 2026-10-18 batch2 (card 9855): "noindex the test host". The same
+  // build serves thezao.com, test.thezao.com and the vercel.app aliases, so this
+  // keys on the host: only the non-production hosts get noindex, and thezao.com
+  // stays indexable after the DNS switch. Next anchors `has` values (^...$).
+  async headers() {
+    const noindex = [{ key: 'X-Robots-Tag', value: 'noindex' }]
+    return [
+      { source: '/:path*', has: [{ type: 'host', value: 'test\\.thezao\\.com' }], headers: noindex },
+      { source: '/:path*', has: [{ type: 'host', value: '.+\\.vercel\\.app' }], headers: noindex },
+    ]
+  },
 }
 
 export default nextConfig
