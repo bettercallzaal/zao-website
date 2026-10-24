@@ -22,11 +22,15 @@ export async function generateMetadata({
   const { handle } = await params
   const m = MEMBERS.find((x) => x.handle === handle)
   if (!m) return {}
+  // Without its own canonical a page inherits the root layout's '/', which tells
+  // search engines it is a copy of the home page. "Living Profile" keeps the title
+  // apart from the same member's /community/<slug> page (hurric4n3ike, attabotty).
   return {
-    title: `${m.name} - The ZAO`,
+    title: `${m.name} - Living Profile - The ZAO`,
     description: `${m.name} - ${m.role} in The ZAO. A living profile of their work in the community.`,
+    alternates: { canonical: `/${m.handle}` },
     openGraph: {
-      title: `${m.name} - The ZAO`,
+      title: `${m.name} - Living Profile - The ZAO`,
       description: `${m.name} - ${m.role} in The ZAO.`,
       url: `https://thezao.com/${m.handle}`,
       siteName: 'The ZAO',
