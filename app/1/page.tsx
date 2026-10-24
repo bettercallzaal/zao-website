@@ -50,6 +50,10 @@ export default function StationIdea() {
       <section className="px-4 py-14">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: 'var(--zao-cream)' }}>The schedule</h2>
+          {/* Seat evaluator on #58: the cadences below are the idea's, not a checked listing. */}
+          <p className="mt-2 text-sm" style={{ color: 'var(--zao-cream-faint)' }}>
+            A sketch of how a schedule could read. Planned, not a live listing.
+          </p>
           <ul className="mt-6">
             {SHOWS.map((s) => (
               <li key={s.name} style={{ borderTop: '1px solid var(--zao-border)' }}>

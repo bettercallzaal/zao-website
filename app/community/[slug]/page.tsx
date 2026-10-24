@@ -63,19 +63,35 @@ export default async function CommunityProfile({
           </Link>
 
           <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end sm:gap-10">
-            <div
-              className="relative h-40 w-40 shrink-0 overflow-hidden rounded sm:h-52 sm:w-52"
-              style={{ border: '1px solid var(--zao-border)', backgroundColor: 'var(--zao-panel)' }}
-            >
-              <Image
-                src={m.photo}
-                alt={m.name}
-                fill
-                sizes="(min-width: 640px) 13rem, 10rem"
-                className="object-cover"
-                priority
-              />
-            </div>
+            <figure className="shrink-0">
+              <div
+                className="relative h-40 w-40 overflow-hidden rounded sm:h-52 sm:w-52"
+                style={{ border: '1px solid var(--zao-border)', backgroundColor: 'var(--zao-panel)' }}
+              >
+                <Image
+                  src={m.photo}
+                  alt={m.name}
+                  fill
+                  sizes="(min-width: 640px) 13rem, 10rem"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              {m.photoCredit && (
+                <figcaption className="mt-2 text-xs" style={{ color: 'var(--zao-cream-faint)' }}>
+                  Photo: {m.photoCredit.by} (
+                  <a
+                    href={m.photoCredit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    {m.photoCredit.source}
+                  </a>
+                  )
+                </figcaption>
+              )}
+            </figure>
 
             <div className="space-y-4">
               {m.category && (
