@@ -46,6 +46,8 @@ export type WebflowMember = {
   category: string | null
   website: string | null
   photo: string
+  // Shown under the photo when the picture is not from the Webflow archive.
+  photoCredit?: { by: string; source: string; url: string }
   bio: string[]
   socials: { label: string; url: string }[]
 }
@@ -409,6 +411,7 @@ export const WEBFLOW_MEMBERS: WebflowMember[] = [
     category: 'Musician',
     website: 'https://www.songchainn.xyz',
     photo: '/members/iman-afrikah.jpg',
+    photoCredit: { by: 'IMan Afrikah', source: 'X', url: 'https://x.com/Imanafrikah' },
     bio: [
       'Musician | Founder @SongChainn | Dev Lead @thezaodao | Co-Founder & Dev @WaveWarzAfrica',
       'Based in Zambia.',
