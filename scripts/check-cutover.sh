@@ -83,6 +83,24 @@ if page_has "$BASE/this-page-does-not-exist-cutover-zz9" '<title>'; then
 fi
 echo "  ok    red control: a made-up path fails the content check"
 
+# The first control only proves a non-200 is rejected. This one proves the text
+# match: a page that answers 200 must still FAIL page_has for text it does not
+# carry. If no candidate answers 200 (Webflow before the switch answers / with a
+# 301 and /links with a 404), page_has cannot pass anywhere, so no PASS below
+# can be false; say so instead of claiming the control ran.
+control_url=''
+for u in "$BASE/" "$BASE/links"; do
+  if [ -n "$(body "$u")" ]; then control_url="$u"; break; fi
+done
+if [ -z "$control_url" ]; then
+  echo "  ok    red control 2: no 200 page on $HOST, so no content check can pass"
+elif page_has "$control_url" 'cutover-zz9 text that no page carries'; then
+  echo "CANNOT RUN: red control 2 passed - page_has accepted a 200 page without the text"
+  exit 2
+else
+  echo "  ok    red control 2: a 200 page ($control_url) fails a text it does not carry"
+fi
+
 # ------------------------------------------------------------ DNS (real domain only)
 if [ "$HOST" = "thezao.com" ]; then
   echo "DNS"
