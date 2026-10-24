@@ -132,6 +132,17 @@ wf="$(header "$BASE/" x-wf-region)"
 if printf '%s' "$srv" | grep -qi '^vercel'; then pass "server: $srv"; else fail "server is '$srv', expected Vercel"; fi
 if [ -z "$wf" ]; then pass "no x-wf-region header"; else fail "x-wf-region: $wf (Webflow is still answering)"; fi
 
+# #64 noindexes the test host and the vercel.app aliases by request host. The
+# real domain must stay indexable; the test host must not be.
+robots="$(header "$BASE/" x-robots-tag)"
+if [ "$HOST" = "thezao.com" ] || [ "$HOST" = "www.thezao.com" ]; then
+  if printf '%s' "$robots" | grep -qi 'noindex'; then fail "x-robots-tag: $robots on $HOST (the live site would leave search)"
+  else pass "no noindex on $HOST"; fi
+else
+  if printf '%s' "$robots" | grep -qi 'noindex'; then pass "x-robots-tag: $robots on $HOST"
+  else fail "x-robots-tag is '$robots' on $HOST, expected noindex"; fi
+fi
+
 cert="$(curl -sS -o /dev/null --max-time 20 -w '%{ssl_verify_result}' "$BASE/" 2>/dev/null || echo err)"
 if [ "$cert" = "0" ]; then pass "TLS certificate verifies for $HOST"; else fail "TLS certificate did not verify for $HOST ($cert)"; fi
 
