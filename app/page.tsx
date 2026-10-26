@@ -51,6 +51,28 @@ export default async function Home() {
         </Container>
       </section>
 
+      {/* Luma events: reuse the calendar embed already used on /calendar. */}
+      <Section eyebrow="Events" heading="Upcoming in the ZAO">
+        <div
+          className="overflow-hidden rounded"
+          style={{ border: '1px solid var(--zao-border)', backgroundColor: 'var(--zao-panel)' }}
+        >
+          <iframe
+            src="https://luma.com/embed/calendar/cal-jPH4al7AMlXzdNN/events"
+            title="Upcoming events in The ZAO"
+            className="w-full"
+            style={{ height: '520px', border: 'none' }}
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+        <div className="mt-6 flex justify-center">
+          <Button href="https://luma.com/zao" variant="secondary" external>
+            See all ZAO events on Luma
+          </Button>
+        </div>
+      </Section>
+
       {/* Proof - WaveWarZ, live on-chain (real, verifiable) */}
       <Section eyebrow="Live data" heading="WaveWarZ, live on-chain">
         <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
