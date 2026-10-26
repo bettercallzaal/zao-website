@@ -58,7 +58,7 @@ export default async function Home() {
           style={{ border: '1px solid var(--zao-border)', backgroundColor: 'var(--zao-panel)' }}
         >
           <iframe
-            src="https://lu.ma/embed/calendar/cal-jPH4al7AMlXzdNN/events"
+            src="https://luma.com/embed/calendar/cal-jPH4al7AMlXzdNN/events"
             title="Upcoming events in The ZAO"
             className="w-full"
             style={{ height: '520px', border: 'none' }}
@@ -67,7 +67,7 @@ export default async function Home() {
           />
         </div>
         <div className="mt-6 flex justify-center">
-          <Button href="https://lu.ma/zao" variant="secondary" external>
+          <Button href="https://luma.com/zao" variant="secondary" external>
             See all ZAO events on Luma
           </Button>
         </div>
