@@ -89,8 +89,8 @@ export default async function Home() {
         ) : (
           <p style={{ color: 'var(--zao-cream-dim)' }}>
             Live battle data at{' '}
-            <a href="https://wavewarz.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--zao-cream)' }}>
-              wavewarz.com
+            <a href="https://wavewarz.info" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--zao-cream)' }}>
+              wavewarz.info
             </a>
             .
           </p>
@@ -108,7 +108,7 @@ export default async function Home() {
                   Top of the leaderboard right now
                 </p>
                 <a
-                  href="https://wavewarz.com"
+                  href="https://wavewarz.info"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shrink-0 text-sm"
