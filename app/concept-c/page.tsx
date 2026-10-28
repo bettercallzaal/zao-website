@@ -29,11 +29,9 @@ const RINGS = [
 ] as const
 
 export default function RoomConcept() {
-  let next = 0
-  const rings = RINGS.map((ring) => {
-    const people = WEBFLOW_MEMBERS.slice(next, next + ring.seats)
-    next += ring.seats
-    return { ...ring, people }
+  const rings = RINGS.map((ring, k) => {
+    const start = RINGS.slice(0, k).reduce((n, r) => n + r.seats, 0)
+    return { ...ring, people: WEBFLOW_MEMBERS.slice(start, start + ring.seats) }
   })
 
   return (
