@@ -1,0 +1,23 @@
+/* Concept A, The Index: a cream rule sweeps under the row on hover, and the live dot breathes. */
+.zao-index-row {
+  position: relative;
+  background-image: linear-gradient(var(--zao-cream), var(--zao-cream));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.5s ease;
+}
+.zao-index-row:hover,
+.zao-index-row:focus-visible {
+  background-size: 100% 2px;
+}
+.zao-index-live {
+  animation: zao-index-breathe 2s ease-in-out infinite;
+}
+@keyframes zao-index-breathe {
+  50% { opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zao-index-row { transition: none; }
+  .zao-index-live { animation: none; }
+}
