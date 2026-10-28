@@ -1,18 +1,19 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 // Counts a number up from zero the first time it scrolls into view. The server renders the
 // final value, so no-JS visitors, crawlers and reduced-motion users always see the real figure.
+// The count is written straight to the DOM: it is animation, not React state.
 export function CountUp({ value, className }: { value: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const [shown, setShown] = useState(value)
 
   useEffect(() => {
     const el = ref.current
     if (!el || !('IntersectionObserver' in window)) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    setShown(0)
+    const fmt = (n: number) => n.toLocaleString('en-US')
+    el.textContent = fmt(0)
     let raf = 0
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -22,7 +23,7 @@ export function CountUp({ value, className }: { value: number; className?: strin
         const dur = 1100
         const tick = (t: number) => {
           const p = Math.min(1, (t - start) / dur)
-          setShown(Math.round(value * (1 - Math.pow(1 - p, 3))))
+          el.textContent = fmt(Math.round(value * (1 - Math.pow(1 - p, 3))))
           if (p < 1) raf = requestAnimationFrame(tick)
         }
         raf = requestAnimationFrame(tick)
@@ -33,12 +34,13 @@ export function CountUp({ value, className }: { value: number; className?: strin
     return () => {
       io.disconnect()
       cancelAnimationFrame(raf)
+      el.textContent = fmt(value)
     }
   }, [value])
 
   return (
     <span ref={ref} className={className}>
-      {shown.toLocaleString('en-US')}
+      {value.toLocaleString('en-US')}
     </span>
   )
 }
