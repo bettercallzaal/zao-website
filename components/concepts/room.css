@@ -1,0 +1,81 @@
+/* Concept C, The Room: members on slow rings around the logo, six to the inner ring like a
+   Respect Game room. Each ring turns one way and each face turns back, so faces stay upright. */
+.zao-room {
+  position: relative;
+  width: min(92vw, 640px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  container-type: size;
+}
+.zao-room-ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 50%;
+  border: 1px solid var(--zao-border);
+  animation: zao-room-spin var(--dur) linear infinite;
+  animation-direction: var(--dir);
+}
+.zao-room-seat {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  transform: rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1));
+}
+.zao-room-face {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--zao-dark);
+  box-shadow: 0 0 0 1px var(--zao-border);
+  animation: zao-room-spin var(--dur) linear infinite;
+  animation-direction: var(--undir);
+  transition: box-shadow 0.2s;
+}
+.zao-room-seat:hover .zao-room-face,
+.zao-room-seat:focus-visible .zao-room-face {
+  box-shadow: 0 0 0 3px var(--zao-cream);
+}
+.zao-room-ring:hover,
+.zao-room-ring:hover .zao-room-face {
+  animation-play-state: paused;
+}
+.zao-room-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 6px rgba(245, 197, 24, 0.12), 0 0 60px rgba(245, 197, 24, 0.25);
+}
+@keyframes zao-room-spin {
+  to { transform: rotate(360deg); }
+}
+.zao-room-step {
+  counter-increment: zao-step;
+}
+.zao-room-step::before {
+  content: counter(zao-step);
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--zao-cream);
+  color: var(--zao-cream);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .zao-room-ring,
+  .zao-room-face { animation: none; }
+}
