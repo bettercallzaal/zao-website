@@ -1,0 +1,124 @@
+
+/* Concept B, The Desk: a mixing console drawn in CSS. */
+.zao-desk {
+  background: linear-gradient(180deg, #0b2440, #061a30);
+  border: 1px solid var(--zao-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+.zao-desk-lcd {
+  background: #020c17;
+  color: var(--zao-cream);
+  border: 1px solid rgba(245, 197, 24, 0.25);
+  box-shadow: inset 0 0 40px rgba(245, 197, 24, 0.06);
+  text-shadow: 0 0 12px rgba(245, 197, 24, 0.35);
+}
+.zao-desk-rec {
+  background: #e15757;
+  animation: zao-desk-blink 1.4s steps(1) infinite;
+}
+@keyframes zao-desk-blink {
+  50% { opacity: 0.2; }
+}
+.zao-desk-swap {
+  animation: zao-desk-in 0.35s ease-out;
+}
+@keyframes zao-desk-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+.zao-desk-strip {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s, border-color 0.2s;
+}
+.zao-desk-strip.is-on {
+  background: rgba(245, 197, 24, 0.06);
+  border-color: rgba(245, 197, 24, 0.4);
+}
+.zao-desk-knob {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #2d4560, #0d1f33 70%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+.zao-desk-knob::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 3px;
+  width: 2px;
+  height: 9px;
+  margin-left: -1px;
+  background: var(--zao-cream);
+  border-radius: 1px;
+}
+.zao-desk-meter {
+  position: relative;
+  width: 8px;
+  height: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 5px, #061a30 5px 7px),
+    linear-gradient(0deg, #3fbf7f 0%, #3fbf7f 55%, #f5c518 75%, #e15757 100%);
+}
+.zao-desk-meter-cover {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 70%;
+  background: #04121f;
+  animation: zao-desk-vu 1s ease-in-out infinite alternate;
+}
+.zao-desk-strip:not(.is-on) .zao-desk-meter-cover {
+  opacity: 0.85;
+}
+@keyframes zao-desk-vu {
+  0% { height: 75%; }
+  30% { height: 40%; }
+  55% { height: 60%; }
+  80% { height: 25%; }
+  100% { height: 50%; }
+}
+.zao-desk-track {
+  position: relative;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: #020c17;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.zao-desk-cap {
+  position: absolute;
+  left: 50%;
+  width: 26px;
+  height: 14px;
+  margin-left: -13px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #d9dde3, #8a929c);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  transition: bottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s;
+}
+.zao-desk-cap::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 6px;
+  height: 2px;
+  background: #1a1a1a;
+}
+.zao-desk-strip.is-on .zao-desk-cap {
+  background: linear-gradient(180deg, #ffe27a, var(--zao-cream));
+  bottom: 78% !important;
+}
+.zao-desk-tape {
+  background: #f1ecd4;
+  color: #10151c;
+}
+@media (prefers-reduced-motion: reduce) {
+  .zao-desk-rec,
+  .zao-desk-swap,
+  .zao-desk-meter-cover { animation: none; }
+  .zao-desk-cap { transition: none; }
+}
