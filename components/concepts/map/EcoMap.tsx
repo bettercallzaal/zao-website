@@ -53,7 +53,8 @@ export function EcoMap() {
   }, [])
 
   useEffect(() => {
-    fit(false)
+    // First fit on the next frame, once the canvas has its laid-out size.
+    const raf = requestAnimationFrame(() => fit(false))
     // Refit only when the width changes: a phone's address bar showing or hiding changes the
     // height on every scroll, and that must not throw away where the visitor has panned to.
     let lastW = window.innerWidth
@@ -63,7 +64,10 @@ export function EcoMap() {
       fit(false)
     }
     window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', onResize)
+    }
   }, [fit])
 
   const flyTo = useCallback((x: number, y: number, k?: number) => {
