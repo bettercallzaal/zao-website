@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }))
-  // The public profiles carried over from the Webflow site (drafts left out), at their original paths
+  // The 43 profiles carried over from the Webflow site, at their original paths
   // so inbound links and search results keep resolving after the switch.
   const community = WEBFLOW_MEMBERS.map((m) => ({
     url: `${BASE}/community/${m.slug}`,
