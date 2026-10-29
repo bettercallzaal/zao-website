@@ -1,0 +1,123 @@
+/* Concept F, The Map. A full-bleed canvas with a fixed card. Region colours are the only
+   new colours, so a place's region reads at a glance. Scoped under .mp. */
+
+.mp {
+  --r-core: #f5c518;
+  --r-governance: #8fc9ff;
+  --r-music: #ff9e6e;
+  --r-builders: #86dca0;
+  --r-tools: #c3b3ff;
+  --r-media: #f0dd9a;
+  background: var(--zao-dark); color: var(--zao-text); min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+.mp a { color: inherit; }
+.mp-core { --c: var(--r-core); }
+.mp-governance { --c: var(--r-governance); }
+.mp-music { --c: var(--r-music); }
+.mp-builders { --c: var(--r-builders); }
+.mp-tools { --c: var(--r-tools); }
+.mp-media { --c: var(--r-media); }
+
+.mp-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border-bottom: 1px solid var(--zao-border); }
+.mp-head h1 { font-size: 1.15rem; font-weight: 700; }
+.mp-head h1 span { color: var(--zao-text); font-weight: 400; }
+.mp-head nav { display: flex; gap: 1.1rem; align-items: center; font-size: 0.95rem; }
+.mp-head nav a:hover { color: var(--zao-cream); }
+.mp-join { background: var(--zao-cream); color: var(--zao-dark) !important; padding: 0.3rem 0.8rem; font-weight: 700; }
+@media (max-width: 480px) { .mp-head nav a:not(.mp-join):nth-child(3) { display: none; } }
+
+.mp-shell { position: relative; flex: 1; display: flex; min-height: calc(100vh - 6.5rem); }
+.mp-canvas {
+  position: relative; flex: 1; overflow: hidden; touch-action: none; cursor: grab; outline: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(245, 197, 24, 0.06), transparent 55%),
+    var(--zao-dark);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(245, 197, 24, 0.06), transparent 55%),
+    radial-gradient(rgba(180, 192, 210, 0.13) 1px, transparent 1px);
+  background-size: auto, 28px 28px;
+}
+.mp-canvas:active { cursor: grabbing; }
+.mp-canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--zao-cream); }
+
+.mp-world { position: absolute; left: 0; top: 0; width: 1600px; height: 1000px; transform-origin: 0 0; will-change: transform; }
+.mp-world.is-flying { transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+.mp-region {
+  position: absolute; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
+  text-transform: uppercase; letter-spacing: 0.3em; font-weight: 500; color: var(--zao-cream-faint); opacity: 0.75;
+}
+
+.mp-edges { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.mp-edge { fill: none; stroke: var(--zao-cream-dim); stroke-width: 1.2; opacity: 0.38; transition: opacity 0.25s, stroke 0.25s; }
+.mp-edge.is-hub { opacity: 0.12; }
+.mp-edge.is-on { stroke: var(--zao-cream); opacity: 0.95; stroke-width: 2; }
+.mp-edge.is-off { opacity: 0.05; }
+
+.mp-node {
+  position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center;
+  background: none; border: 0; padding: 0; color: var(--zao-text); transition: opacity 0.25s;
+}
+.mp-node:focus-visible { outline: none; }
+.mp-node:focus-visible .mp-dot { box-shadow: 0 0 0 3px var(--zao-dark), 0 0 0 5px var(--zao-cream); }
+.mp-dot {
+  display: block; border-radius: 999px; background: var(--c); box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 0.25s;
+}
+.mp-label {
+  position: absolute; top: 100%; margin-top: 0.35em; white-space: nowrap; font-weight: 500; line-height: 1.1;
+  text-shadow: 0 1px 3px var(--zao-dark), 0 0 8px var(--zao-dark);
+}
+.mp-node.is-focus .mp-dot, .mp-node.is-sel .mp-dot { box-shadow: 0 0 0 0.35em color-mix(in srgb, var(--c) 30%, transparent); }
+.mp-node.is-focus .mp-label, .mp-node.is-sel .mp-label { color: var(--c); }
+.mp-node.is-dim { opacity: 0.25; }
+
+.mp-zoom { position: absolute; left: 1rem; bottom: 1rem; display: flex; gap: 0.35rem; }
+.mp-zoom button {
+  min-width: 2.5rem; height: 2.5rem; padding: 0 0.75rem; border: 1px solid var(--zao-border);
+  background: rgba(2, 15, 32, 0.85); color: var(--zao-text); font-size: 1.1rem;
+}
+.mp-zoom .mp-fit { font-size: 0.85rem; }
+.mp-zoom button:hover { border-color: var(--zao-cream); }
+
+.mp-card {
+  background: var(--zao-dark-alt); border-left: 1px solid var(--zao-border);
+  width: 360px; flex: none; overflow-y: auto; padding: 1.5rem;
+}
+@media (max-width: 1023px) {
+  .mp-shell { flex-direction: column; min-height: calc(100vh - 6.5rem); }
+  .mp-canvas { min-height: 62vh; }
+  .mp-card { width: auto; border-left: 0; border-top: 1px solid var(--zao-border); padding: 1.25rem 1rem 2rem; }
+}
+
+.mp-kicker { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--zao-cream); }
+.mp-swatch { display: inline-block; width: 0.65rem; height: 0.65rem; border-radius: 999px; background: var(--c, var(--zao-cream)); flex: none; }
+.mp-lede { margin-top: 0.75rem; font-size: 1.1rem; line-height: 1.5; color: var(--zao-cream-dim); }
+.mp-regions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+.mp-chip {
+  display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.7rem; font-size: 0.9rem;
+  border: 1px solid var(--zao-border); background: transparent; color: var(--zao-text);
+}
+.mp-chip:hover { border-color: var(--c); }
+
+.mp-detail-top { display: flex; justify-content: space-between; align-items: center; }
+.mp-detail .mp-kicker { color: var(--c); }
+.mp-close { background: none; border: 1px solid var(--zao-border); color: var(--zao-cream-dim); padding: 0.2rem 0.6rem; font-size: 0.8rem; }
+.mp-name { margin-top: 0.6rem; font-size: 2.2rem; line-height: 1; font-weight: 700; }
+.mp-blurb { margin-top: 0.8rem; line-height: 1.55; color: var(--zao-cream-dim); }
+.mp-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.mp-go { background: var(--zao-cream); color: var(--zao-dark) !important; padding: 0.45rem 0.9rem; font-weight: 700; }
+.mp-box { border: 1px solid var(--zao-border); padding: 0.45rem 0.9rem; font-size: 0.9rem; }
+.mp-box:hover { border-color: var(--zao-cream); }
+.mp-conn { margin-top: 1.6rem; color: var(--zao-cream-faint); }
+.mp-links { margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; }
+.mp-links button {
+  width: 100%; display: flex; align-items: center; gap: 0.45rem; text-align: left; padding: 0.4rem 0.5rem;
+  background: var(--zao-panel); border: 0; color: var(--zao-text); font-size: 0.9rem;
+}
+.mp-links button:hover { background: var(--zao-panel-hover); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-world.is-flying { transition: none; }
+}
