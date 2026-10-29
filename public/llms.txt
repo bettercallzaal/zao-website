@@ -6,31 +6,33 @@
 > its own llms.txt. Do not treat either file as speaking for the whole
 > organisation.
 
-> The ZAO (ZTalent Artist Organization) is a decentralized impact network focused on bringing the profit margin, data, and IP rights back to artists using emerging technology like blockchain and AI. Priority stack: music first, community second, technology third. Founded by Zaal Panthaki (BetterCallZaal).
+ZAO stands for ZTalent Artist Organization. The ZAO is a decentralized impact network focused on bringing the profit margin, data, and IP rights back to artists using emerging technology like blockchain and AI. Founded by Zaal Panthaki (BetterCallZaal). Priority stack: music first, community second, technology third.
+
+Name note: the acronym ZAO = ZTalent Artist Organization (etymology); the descriptor for what it is today is a decentralized impact network. Both are correct.
 
 ## What it is
-
-Not a record label or a "music community" - an impact network whose first artist domain is music. It returns three things to artists: profit margin, data, and IP rights. Technology is the means, not the headline. The acronym is ZTalent Artist Organization; what it is today is a decentralized impact network - both are correct.
+Not a record label or a "music community" - an impact network whose first artist domain is music. It returns three things to artists: profit margin, data, and IP rights. Technology is the means, not the headline.
 
 ## Governance - the Fractal and Respect
-
 - Respect is the on-chain contribution currency: a soulbound OG ERC-20 plus a ZOR ERC-1155, both on Optimism.
-- A weekly Respect Game ranks contributions; rewards follow a Fibonacci curve. It has run 100+ unbroken weeks (since 2024-07-30).
-- On-chain execution via OREC (Optimistic Respect Execution Contract): a 72-hour voting window plus a 72-hour veto window.
+- A weekly Respect Game ranks contributions; rewards follow a Fibonacci curve. 100+ weeks, meeting weekly since 30 July 2024 (116 calendar weeks to 2026-10-22); results have settled on-chain in 72 distinct weeks as of 2026-10-12. No unbroken streak is claimed: the on-chain award ledger has no mints for periods 71, 72 and 103. Periods 71 and 72 were played and scored off-chain; period 103 has no record either way (fractal whitepaper draft, ch08).
+- On-chain execution via OREC (Optimistic Respect Execution Contract): 72-hour voting window + 72-hour veto window.
+- Verified on-chain (2026-10-22): 168 unique Respect holders (122 OG + 67 ZOR, 21 hold both), read from Optimism via the Blockscout token-holders API (OG 0x34cE89baA7E4a4B00E17F7E4C0cb97105C216957, ZOR 0x9885CCeEf7E8371Bf8d6f2413723D25917E7445c). OG has had no new mints since 2025-12-20; its distribution Gini is roughly 0.73 (measured 2026-07-05).
+
+## Legal / entity architecture
+- The ZAO has no formal legal entity yet; the operating umbrella is BetterCallZaal Strategies LLC.
+- It runs as a decentralized impact network. Some lanes spin out their own entities as they mature.
 
 ## Production lanes
+- WaveWarZ - live-traded music battles (Solana mainnet + Base testnet)
+- ZABAL Gamez - the 3-month build-a-thon
+- The ZAO festivals - ZAOstock, ZAOville, ZAO-PALOOZA, ZAO-CHELLA
+- ZAO OS - the lab/monorepo where new ZAO things prototype before they graduate to their own repo + domain
 
-- WaveWarZ - live-traded music battles (Solana mainnet + Base testnet).
-- ZABAL Gamez - the 3-month build-a-thon for artists and builders.
-- The ZAO festivals - ZAOstock, ZAOville, ZAO-PALOOZA, ZAO-CHELLA.
-- COC Concertz - a recurring metaverse concert series.
-- ZAO OS - the lab/monorepo where new ZAO things prototype before they graduate to their own repo and domain.
-
-## How to explore
-
-- thezao.xyz and zaoos.com
-- Papers: thezao.xyz/papers (whitepaper, technical whitepaper, manifesto)
+## Find it / how to explore
+- thezao.com and zaoos.com
+- Papers: thezao.com/papers (whitepaper, technical whitepaper, manifesto)
 - Farcaster: the /zao and /zabal channels
 
 ---
-Source of truth: the ZAO ICM box (useicm.com). This file is generated from it - update the box first, then regenerate. See .claude/rules/icm-grounding.md.
+Source of truth: the thezao ICM box, master copy at https://context.thezao.com/thezao (zao-icm repo, boxes/thezao.llm.txt). This file is generated from it - update the box first, then regenerate. See .claude/rules/icm-grounding.md.
