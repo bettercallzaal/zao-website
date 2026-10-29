@@ -7,6 +7,9 @@ import { parseIcs, splitEventsByTime } from '@/lib/api/ics-parser'
 
 export const REVALIDATE = 900
 
+/** When this edition was printed: the moment the feeds were read. */
+export const printedNow = () => Date.now()
+
 const LUMA_ICS = 'https://api.lu.ma/ics/get?entity=calendar&id=cal-jPH4al7AMlXzdNN'
 const PARAGRAPH_RSS = 'https://api.paragraph.com/blogs/rss/@thezao'
 const WW_BATTLES = 'https://wavewarz.info/api/public/battles?limit=8'

@@ -20,9 +20,14 @@ export function Countdown({ start, printedAt }: { start: string; printedAt: numb
   const target = Date.parse(start)
   const [now, setNow] = useState(printedAt)
   useEffect(() => {
-    setNow(Date.now())
-    const t = setInterval(() => setNow(Date.now()), 30000)
-    return () => clearInterval(t)
+    const tick = () => setNow(Date.now())
+    // The first tick corrects the printed time as soon as the page is on screen.
+    const first = setTimeout(tick, 0)
+    const t = setInterval(tick, 30000)
+    return () => {
+      clearTimeout(first)
+      clearInterval(t)
+    }
   }, [])
   return <span suppressHydrationWarning>{until(target, now)}</span>
 }

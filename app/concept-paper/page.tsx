@@ -9,6 +9,7 @@ import {
   getEditions,
   getBattles,
   getBattleTotal,
+  printedNow,
   type PaperEvent,
 } from '@/components/concepts/paper/feed'
 import '@/components/concepts/paper/paper.css'
@@ -56,7 +57,7 @@ function Missing({ what }: { what: string }) {
 }
 
 export default async function PaperConcept() {
-  const printedAt = Date.now()
+  const printedAt = printedNow()
   const [events, editions, battles, total] = await Promise.all([
     getEvents(),
     getEditions(),
