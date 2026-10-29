@@ -1,0 +1,114 @@
+/* Concept E, The Player. One stage: cover and controls on the left, the rotation on the
+   right, the ZAO in a single band below. Scoped under .pl. */
+
+.pl { min-height: 100vh; background: var(--zao-dark); color: var(--zao-text); }
+.pl a { color: inherit; }
+
+.pl-top { max-width: 78rem; margin: 0 auto; padding: 1.5rem 1rem 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1.5rem; }
+.pl-top p { color: var(--zao-cream-dim); font-size: 0.95rem; }
+.pl-brand { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; color: var(--zao-cream); }
+.pl-brand span { color: var(--zao-text); font-weight: 400; }
+
+.pl-stage {
+  max-width: 78rem; margin: 0 auto; padding: 1.5rem 1rem 3rem;
+  display: grid; gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .pl-top, .pl-stage { padding-left: 2rem; padding-right: 2rem; }
+  .pl-stage { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: start; }
+}
+
+.pl-now { display: grid; gap: 1.75rem; }
+@media (min-width: 720px) { .pl-now { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr); align-items: start; } }
+
+.pl-art { position: relative; aspect-ratio: 1; background: var(--zao-dark-alt); overflow: hidden; }
+.pl-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 8s linear, filter 0.4s; filter: saturate(0.85); }
+.pl-art.is-playing img { transform: scale(1.06); filter: none; }
+.pl-art-blank { width: 100%; height: 100%; display: grid; place-items: center; font-size: 8rem; font-weight: 700; color: var(--zao-cream); }
+.pl-big {
+  position: absolute; left: 1rem; bottom: 1rem; width: 4.5rem; height: 4.5rem; border-radius: 999px;
+  background: var(--zao-cream); color: var(--zao-dark); border: 0; display: grid; place-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); transition: transform 0.15s;
+}
+.pl-big:hover { transform: scale(1.06); }
+.pl-big:focus-visible, .pl-controls button:focus-visible, .pl-queue button:focus-visible, .pl-bar:focus-visible {
+  outline: 2px solid var(--zao-cream); outline-offset: 3px;
+}
+.pl-ico-play { width: 0; height: 0; margin-left: 5px; border-left: 20px solid currentColor; border-top: 12px solid transparent; border-bottom: 12px solid transparent; }
+.pl-ico-pause { width: 18px; height: 22px; border-left: 6px solid currentColor; border-right: 6px solid currentColor; }
+
+.pl-count { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--zao-cream); font-variant-numeric: tabular-nums; }
+.pl-title {
+  margin-top: 0.5rem; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 0.98; letter-spacing: -0.03em;
+  color: var(--zao-text); font-weight: 700; overflow-wrap: anywhere;
+}
+.pl-credit { margin-top: 0.75rem; font-size: 1.15rem; }
+.pl-credit a { color: var(--zao-cream); font-weight: 500; }
+.pl-credit a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pl-handle { color: var(--zao-cream-faint); font-size: 0.95rem; }
+
+.pl-bar { margin-top: 1.5rem; height: 0.6rem; background: var(--zao-panel-hover); cursor: pointer; position: relative; }
+.pl-bar-fill { position: absolute; inset: 0 auto 0 0; background: var(--zao-cream); transition: width 0.25s linear; }
+.pl-times { display: flex; justify-content: space-between; margin-top: 0.35rem; font-size: 0.8rem; color: var(--zao-cream-dim); font-variant-numeric: tabular-nums; }
+
+.pl-controls { display: flex; gap: 0.5rem; margin-top: 1rem; }
+.pl-controls button {
+  flex: 1; padding: 0.7rem 0; border: 1px solid var(--zao-border); background: transparent; color: var(--zao-text);
+  font-weight: 500; letter-spacing: 0.04em;
+}
+.pl-controls button:hover { background: var(--zao-panel-hover); }
+.pl-controls .pl-main { background: var(--zao-cream); color: var(--zao-dark); border-color: var(--zao-cream); font-weight: 700; }
+.pl-controls .pl-main:hover { background: var(--zao-cream); opacity: 0.9; }
+
+.pl-record { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1.5rem; border-top: 1px solid var(--zao-border); }
+.pl-record div { padding-top: 0.75rem; }
+.pl-record dt { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--zao-cream-faint); }
+.pl-record dd { font-size: 1.75rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pl-record small { font-size: 0.85rem; font-weight: 400; color: var(--zao-cream-dim); }
+
+.pl-source { margin-top: 1.25rem; font-size: 0.82rem; line-height: 1.5; color: var(--zao-cream-dim); }
+.pl-source a { text-decoration: underline; text-underline-offset: 3px; }
+
+.pl-queue { border-top: 2px solid var(--zao-cream); }
+@media (min-width: 1024px) { .pl-queue { border-top: 0; border-left: 1px solid var(--zao-border); padding-left: 2rem; } }
+.pl-queue-head { font-size: 0.75rem !important; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.9rem 0 0.4rem; }
+.pl-queue button {
+  width: 100%; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 0.75rem; align-items: center;
+  padding: 0.7rem 0.5rem; background: transparent; border: 0; border-bottom: 1px solid var(--zao-border);
+  text-align: left; color: var(--zao-text);
+}
+.pl-queue button:hover { background: var(--zao-panel); }
+.pl-queue button.is-current { background: var(--zao-panel-hover); }
+.pl-queue button.is-current .pl-q-title { color: var(--zao-cream); }
+.pl-q-n { font-size: 0.8rem; color: var(--zao-cream-faint); font-variant-numeric: tabular-nums; }
+.pl-q-main { min-width: 0; display: flex; flex-direction: column; }
+.pl-q-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
+.pl-q-artist { font-size: 0.85rem; color: var(--zao-cream-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl-q-rec { font-size: 0.8rem; color: var(--zao-cream-dim); font-variant-numeric: tabular-nums; }
+.pl-keys { margin-top: 0.75rem; font-size: 0.78rem; color: var(--zao-cream-faint); }
+
+/* A three-bar meter that only moves while music is actually playing. */
+.pl-eq { display: inline-block; width: 14px; height: 12px; background:
+  linear-gradient(var(--zao-cream), var(--zao-cream)) 0 100% / 3px 40% no-repeat,
+  linear-gradient(var(--zao-cream), var(--zao-cream)) 5px 100% / 3px 100% no-repeat,
+  linear-gradient(var(--zao-cream), var(--zao-cream)) 10px 100% / 3px 65% no-repeat;
+  animation: pl-eq 0.9s ease-in-out infinite alternate; }
+@keyframes pl-eq {
+  to { background-size: 3px 90%, 3px 35%, 3px 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-eq { animation: none; }
+  .pl-art img { transition: none; }
+  .pl-art.is-playing img { transform: none; }
+}
+
+.pl-off { max-width: 78rem; margin: 3rem auto; padding: 0 1rem; color: var(--zao-cream-dim); }
+.pl-off a { text-decoration: underline; }
+
+.pl-band { border-top: 1px solid var(--zao-border); background: var(--zao-dark-alt); }
+.pl-band-lead, .pl-band-links { max-width: 78rem; margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 1024px) { .pl-band-lead, .pl-band-links { padding: 0 2rem; } }
+.pl-band-lead { padding-top: 2rem; font-size: 1.15rem; max-width: 52rem; margin-left: max(0px, calc((100% - 78rem) / 2)); color: var(--zao-cream-dim); }
+.pl-band-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; padding-top: 1.25rem; padding-bottom: 2.5rem; align-items: center; }
+.pl-band-links a:hover { color: var(--zao-cream); }
+.pl-join { background: var(--zao-cream); color: var(--zao-dark) !important; padding: 0.5rem 1rem; font-weight: 700; }
