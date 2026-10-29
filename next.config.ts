@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next'
-import { WEBFLOW_MEMBERS } from './lib/webflowMembers'
+import { WEBFLOW_MEMBERS, DRAFT_MEMBER_SLUGS } from './lib/webflowMembers'
 
 // URLs the Webflow site answers today. Without these they 404 the moment DNS
 // moves, taking any inbound link, bookmark or search result with them.
@@ -56,6 +56,15 @@ const nextConfig: NextConfig = {
         destination: `/community/${m.slug}`,
         permanent: true,
       })),
+
+      // Draft members (see lib/webflowMembers.ts) have no profile here, but
+      // Webflow served their /community/<slug> pages, so the old links land on
+      // the directory instead of a 404. Temporary, because publishing a draft
+      // brings the page back.
+      ...DRAFT_MEMBER_SLUGS.flatMap((slug) => [
+        { source: `/community/${slug}`, destination: '/community', permanent: false },
+        { source: `/artists/${slug}`, destination: '/community', permanent: false },
+      ]),
     ]
   },
   // Zaal, grill 2026-10-18 batch2 (card 9855): "noindex the test host". The same

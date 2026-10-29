@@ -50,11 +50,16 @@ export type WebflowMember = {
   photoCredit?: { by: string; source: string; url: string }
   bio: string[]
   socials: { label: string; url: string }[]
+  // Marked Draft in the Webflow CMS export, so not public yet. Kept here so
+  // publishing is a one-line change; WEBFLOW_MEMBERS leaves them out.
+  draft?: true
 }
 
-export const WEBFLOW_MEMBERS: WebflowMember[] = [
+// Every member from the Webflow CMS, drafts included. Pages use WEBFLOW_MEMBERS.
+const ALL_WEBFLOW_MEMBERS: WebflowMember[] = [
   {
     slug: 'attabotty',
+    draft: true,
     name: 'Attabotty',
     category: 'Musician',
     website: 'https://www.attabotty.com/',
@@ -608,6 +613,7 @@ export const WEBFLOW_MEMBERS: WebflowMember[] = [
   },
   {
     slug: 'maxwell-aden',
+    draft: true,
     name: 'Maxwell Aden',
     category: 'Musician',
     website: null,
@@ -697,6 +703,7 @@ export const WEBFLOW_MEMBERS: WebflowMember[] = [
   },
   {
     slug: 'smoke-wavy',
+    draft: true,
     name: 'Smoke Wavy',
     category: 'Musician',
     website: 'http://zaomusic.xyz',
@@ -827,6 +834,14 @@ export const WEBFLOW_MEMBERS: WebflowMember[] = [
     ],
   },
 ]
+
+// The public directory. Draft rows in the Webflow CMS export (attabotty,
+// maxwell-aden, smoke-wavy) are left out of every page, the sitemap and the
+// category lists until they are published.
+export const WEBFLOW_MEMBERS: WebflowMember[] = ALL_WEBFLOW_MEMBERS.filter((m) => !m.draft)
+
+// Slugs whose /community/<slug> page Webflow served, but which are drafts here.
+export const DRAFT_MEMBER_SLUGS: string[] = ALL_WEBFLOW_MEMBERS.filter((m) => m.draft).map((m) => m.slug)
 
 export function getMember(slug: string) {
   return WEBFLOW_MEMBERS.find((m) => m.slug === slug)

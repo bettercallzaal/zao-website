@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer'
 import { WEBFLOW_MEMBERS, categorySlug } from '@/lib/webflowMembers'
 import { WEBFLOW_DROPS, hasDrops } from '@/lib/webflowDrops'
 
-// Only the 43 carried-over profiles render; everything else 404s.
+// Only the public carried-over profiles render (drafts redirect, see next.config.ts); everything else 404s.
 export const dynamicParams = false
 
 export function generateStaticParams() {
