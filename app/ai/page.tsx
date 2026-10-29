@@ -40,7 +40,7 @@ export default function AiTools() {
             </p>
             <p className="max-w-2xl text-sm leading-relaxed" style={{ color: 'var(--zao-text)' }}>
               Each link below is plain text an AI can read directly:{' '}
-              <code style={{ color: 'var(--zao-cream)' }}>useicm.com/api/objects/&lt;id&gt;/llm.txt</code>
+              <code style={{ color: 'var(--zao-cream)' }}>context.thezao.com/&lt;box&gt;</code>
             </p>
           </div>
         </Container>
@@ -59,7 +59,7 @@ export default function AiTools() {
                 {boxes.map((box) => (
                   <a
                     key={box.slug}
-                    href={boxLlmUrl(box.id)}
+                    href={boxLlmUrl(box)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group block rounded-xl p-5 transition-colors"
