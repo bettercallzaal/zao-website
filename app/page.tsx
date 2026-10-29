@@ -1,21 +1,24 @@
-import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
 import { ArtistCard } from '@/components/ArtistCard'
-import { EcosystemCard } from '@/components/EcosystemCard'
 import { StatTile } from '@/components/StatTile'
-import { NOTABLE_ARTISTS, ECOSYSTEM } from '@/lib/constants'
+import { NOTABLE_ARTISTS } from '@/lib/constants'
 import { getWaveWarZStats, getTopArtists, fmtNum } from '@/lib/wavewarz'
+import { BrandDoors } from '@/components/BrandDoors'
+import { getPulses } from '@/lib/frontdoor'
 
 export default async function Home() {
-  const [ww, topArtists] = await Promise.all([getWaveWarZStats(), getTopArtists(5)])
+  const [ww, topArtists, pulses] = await Promise.all([getWaveWarZStats(), getTopArtists(5), getPulses()])
 
   return (
     <main className="min-h-screen">
       <Nav />
+
+      {/* The front door: every ZAO brand, one click to its own site (Zaal, 2026-10-28). */}
+      <BrandDoors pulses={pulses} />
 
       {/* Hero - lead with the thesis */}
       <section className="py-16 sm:py-24" style={{ borderBottom: '1px solid var(--zao-border)' }}>
@@ -222,19 +225,6 @@ export default async function Home() {
               </p>
             </div>
           </div>
-        </div>
-      </Section>
-
-      {/* Ecosystem */}
-      <Section eyebrow="Ecosystem" heading="What we build">
-        <p className="-mt-4 mb-8 max-w-2xl" style={{ color: 'var(--zao-cream-dim)' }}>
-          Everything under the umbrella serves the same idea. Each is its own project, built in
-          the open. See them all in the <Link href="/nexus" style={{ color: 'var(--zao-cream)' }}>Nexus</Link>.
-        </p>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {ECOSYSTEM.map((p) => (
-            <EcosystemCard key={p.name} name={p.name} blurb={p.blurb} href={p.href} />
-          ))}
         </div>
       </Section>
 
