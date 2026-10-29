@@ -1,33 +1,33 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Space_Grotesk } from 'next/font/google'
-import { PlayerStrip } from '@/components/concepts/player/Strip'
-import { Player } from '@/components/concepts/player/Player'
-import { getRotation } from '@/components/concepts/player/tracks'
-import '@/components/concepts/player/player.css'
+import { Nav } from '@/components/Nav'
+import { Player } from '@/components/listen/Player'
+import { getRotation } from '@/components/listen/tracks'
+import '@/components/listen/player.css'
 
-// Concept E, THE PLAYER: the home page is a music player. The first thing on screen is a
-// play button and the first thing a visitor does is hear an artist. The rotation is the
-// songs fans have traded most on WaveWarZ that are public on Audius, one per artist, each with its
-// battle record and a visible credit. Everything about The ZAO itself sits in one band
-// under the player.
+// /listen: a working music player. Zaal, 2026-10-28, on homepage concept E (#73): "i like this
+// as a side page". The rotation is the songs fans have traded most on WaveWarZ that are public
+// on Audius, one per artist, each with its battle record and a visible credit (credit rule).
+// Everything about The ZAO itself sits in one band under the player.
 
 export const revalidate = 3600
 
-// A sketch for Zaal to compare, so it stays out of search until one is picked.
 export const metadata: Metadata = {
-  title: 'Concept E: The Player - The ZAO',
-  robots: { index: false, follow: false },
+  title: 'Listen - The ZAO',
+  description:
+    'Press play on artists from The ZAO network: songs battled on WaveWarZ, streamed from the artists\' own Audius uploads, each credited with its battle record.',
+  alternates: { canonical: '/listen' },
 }
 
 const grotesk = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
-export default async function PlayerConcept() {
+export default async function ListenPage() {
   const tracks = await getRotation()
 
   return (
     <main className={`pl ${grotesk.className}`}>
-      <PlayerStrip />
+      <Nav />
       <header className="pl-top">
         <h1 className="pl-brand">
           The ZAO <span>is playing</span>

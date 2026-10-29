@@ -56,16 +56,27 @@ function covers(a: AudiusTrack['artwork']): string[] {
   return [main, ...mirrors.map((m) => `${m}${u.pathname}`)]
 }
 
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+// Audius rate-limits the resolve endpoint: on 2026-10-28, 40 lookups in parallel got 24
+// answers of 429. So lookups run one at a time, and a 429 is retried after a pause.
 async function resolve(link: string): Promise<AudiusTrack | null> {
-  try {
-    const url = `${AUDIUS}/resolve?app_name=${APP_NAME}&url=${encodeURIComponent(link)}`
-    const res = await fetch(url, { headers: HEADERS, next: { revalidate: 3600 } })
-    if (!res.ok) return null
-    const d = (await res.json()) as { data?: AudiusTrack }
-    return d.data ?? null
-  } catch {
-    return null
+  const url = `${AUDIUS}/resolve?app_name=${APP_NAME}&url=${encodeURIComponent(link)}`
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, { headers: HEADERS, next: { revalidate: 3600 } })
+      if (res.status === 429) {
+        await wait(1500 * (attempt + 1))
+        continue
+      }
+      if (!res.ok) return null
+      const d = (await res.json()) as { data?: AudiusTrack }
+      return d.data ?? null
+    } catch {
+      return null
+    }
   }
+  return null
 }
 
 export async function getRotation(): Promise<Track[] | null> {
@@ -80,25 +91,30 @@ export async function getRotation(): Promise<Track[] | null> {
     return null
   }
 
-  // The leaderboard is ordered by SOL traded on each song (checked 28 Oct); walk it in that order, one song per artist so
-  // the rotation is a room of artists rather than one artist's catalogue.
+  // The leaderboard is ordered by SOL traded on each song (checked 28 Oct). Walk it in that
+  // order, one song per artist, so the rotation is a room of artists rather than one artist's
+  // catalogue.
   const candidates = songs
     .filter((s) => typeof s.musicLink === 'string' && /^https:\/\/audius\.co\//.test(s.musicLink))
     .slice(0, 40)
-  const resolved = await Promise.all(candidates.map((s) => resolve(s.musicLink as string)))
 
   const seen = new Set<string>()
   const out: Track[] = []
-  resolved.forEach((t, i) => {
-    if (out.length >= MAX || !t || !t.id || !t.user?.handle) return
-    if (!t.is_streamable || t.is_delete || t.is_stream_gated || t.is_unlisted) return
+  for (const s of candidates) {
+    if (out.length >= MAX) break
+    // The first path segment of an Audius link is the uploader's handle, so a second song by
+    // an artist already in the rotation is skipped without a lookup.
+    const linkHandle = new URL(s.musicLink as string).pathname.split('/')[1]?.toLowerCase()
+    if (linkHandle && seen.has(linkHandle)) continue
+    const t = await resolve(s.musicLink as string)
+    if (!t || !t.id || !t.user?.handle) continue
+    if (!t.is_streamable || t.is_delete || t.is_stream_gated || t.is_unlisted) continue
     const key = t.user.handle.toLowerCase()
-    if (seen.has(key)) return
-    const s = candidates[i]
+    if (seen.has(key)) continue
     const battles = num(s.battles)
     const wins = num(s.wins)
     const losses = num(s.losses)
-    if (battles === null || wins === null || losses === null) return
+    if (battles === null || wins === null || losses === null) continue
     seen.add(key)
     out.push({
       id: t.id,
@@ -113,6 +129,6 @@ export async function getRotation(): Promise<Track[] | null> {
       wins,
       losses,
     })
-  })
+  }
   return out.length ? out : null
 }
