@@ -72,7 +72,9 @@ function parseVEvent(eventContent: string): ApiEvent | null {
   const summary = unescapeIcsText(props.SUMMARY || '')
   const dtstart = props.DTSTART || ''
   const dtend = props.DTEND || ''
-  const url = props.URL || props.DESCRIPTION?.match(/https?:\/\/[^\s]+/)?.[0] || ''
+  // DESCRIPTION is still ICS-escaped here, so a newline is the two characters "\n". Stop the
+  // link at a backslash as well as at whitespace, or Luma's "...\n\nAddress:..." tail rides along.
+  const url = props.URL || props.DESCRIPTION?.match(/https?:\/\/[^\s\\]+/)?.[0] || ''
   const location = unescapeIcsText(props.LOCATION || '') || null
 
   if (!summary || !dtstart || !dtend) {
