@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!m) return {}
   // Without its own canonical a page inherits the root layout's '/', which tells
   // search engines it is a copy of the home page. "Living Profile" keeps the title
-  // apart from the same member's /community/<slug> page (hurric4n3ike, attabotty).
+  // apart from the same member's /community/<slug> page (hurric4n3ike).
   return {
     title: `${m.name} - Living Profile - The ZAO`,
     description: `${m.name} - ${m.role} in The ZAO. A living profile of their work in the community.`,
