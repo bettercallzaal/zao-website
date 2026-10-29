@@ -1,6 +1,10 @@
-// The ZAO's ICM boxes - permanent, AI-readable context boxes on useicm.com.
-// Point any AI (or agent) at a box's llm.txt and it loads grounded context on
-// that project. This is the ZAO ecosystem's answer to "what is X" for AI.
+// The ZAO's ICM boxes - permanent, AI-readable context boxes. Point any AI (or
+// agent) at a box and it loads grounded context on that project. This is the
+// ZAO ecosystem's answer to "what is X" for AI.
+//
+// Since 2026-10-11 the master copy of every box is the zao-icm repo (boxes/),
+// served as plain text at context.thezao.com/<slug>. The useicm.com copies the
+// ids below point at are frozen, so links go to the master by slug.
 //
 // Source of truth for box IDs: `python3 ~/bin/zao-icm.py list` (repo:
 // research/identity/icm-boxes/). Keep this in sync when boxes are minted.
@@ -13,8 +17,8 @@ export interface IcmBox {
   group: 'core' | 'product' | 'people' | 'knowledge'
 }
 
-/** Raw AI-readable context for a box (plain text, no auth). */
-export const boxLlmUrl = (id: string) => `https://useicm.com/api/objects/${id}/llm.txt`
+/** Raw AI-readable context for a box (plain text, no auth), from the master copy. */
+export const boxLlmUrl = (box: Pick<IcmBox, 'slug'>) => `https://context.thezao.com/${box.slug}`
 
 export const ICM_BOXES: IcmBox[] = [
   // Core
