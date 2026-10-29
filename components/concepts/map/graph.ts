@@ -2,13 +2,13 @@
 // (lib/icm.ts, groups core, product and people), placed by region, and joined wherever one
 // box's own text names another.
 //
-// HOW THE EDGES WERE MEASURED, 2026-10-28 ~21:00 ET. Each box's llm.txt was fetched from
-// useicm.com (browser headers, see ZAOOS .claude/rules/icm-grounding.md) and searched for the
-// other boxes' names: "WaveWarZ", "ZABAL Gam", "ZAOstock", "COC Concertz", "POIDH", "Fractal"
+// HOW THE EDGES WERE MEASURED, 2026-10-28 ~21:45 EDT. Each box's master copy was fetched from
+// context.thezao.com/<slug> (served from the zao-icm repo's boxes/, the master since
+// 2026-10-11; the useicm.com copy is frozen) and searched for the other boxes' names: "WaveWarZ", "ZABAL Gam", "ZAOstock", "COC Concertz", "POIDH", "Fractal"
 // or "Respect", "Newsletter", "ZAO Assistant" or "ZOE", "Zuke" or "ZAO Spaces", and so on, case
-// sensitive except channelz and zlank. A pair is joined if either box names the other. 51 pairs
-// came back. They are copied here rather than fetched at build time because useicm.com refuses
-// plain server requests; re-run the same search when a box changes.
+// sensitive except channelz and zlank. A pair is joined if either box names the other. 53 pairs
+// came back. They are copied here so the map does not depend on a fetch at build time; re-run
+// the same search when a box changes.
 //
 // Positions are hand placed in a 1600 x 1000 world, by region, so the map reads the same on
 // every visit. The blurbs are condensed from each box's opening paragraph.
@@ -82,10 +82,11 @@ const PAIRS: [string, string][] = [
   ['bettercallzaal', 'wavewarz'], ['bettercallzaal', 'zabalgamez'], ['bettercallzaal', 'zao-assistant'],
   ['bettercallzaal', 'zao-festivals'], ['bettercallzaal', 'zao-newsletter'], ['bettercallzaal', 'zao-video-editor'],
   ['bettercallzaal', 'zaolingo'], ['bettercallzaal', 'zaoscout'], ['bettercallzaal', 'zaostock'],
-  ['bettercallzaal', 'zlank'], ['bettercallzaal', 'zuke'], ['channelz', 'thezao'], ['coc-concertz', 'thezao'],
+  ['bettercallzaal', 'zlank'], ['bettercallzaal', 'zuke'], ['channelz', 'thezao'], ['coc-concertz', 'sparkz'],
+  ['coc-concertz', 'thezao'],
   ['coc-concertz', 'zao-festivals'], ['coc-concertz', 'zaostock'], ['fractal', 'thezao'], ['fractal', 'zabalgamez'],
   ['poidh', 'thezao'], ['poidh', 'wavewarz'], ['poidh', 'zabalgamez'], ['poidh', 'zao-assistant'], ['poidh', 'zuke'],
-  ['sparkz', 'thezao'], ['thezao', 'wavewarz'], ['thezao', 'zabalgamez'], ['thezao', 'zao-assistant'],
+  ['sparkz', 'thezao'], ['sparkz', 'zaostock'], ['thezao', 'wavewarz'], ['thezao', 'zabalgamez'], ['thezao', 'zao-assistant'],
   ['thezao', 'zao-festivals'], ['thezao', 'zao-newsletter'], ['thezao', 'zao-video-editor'], ['thezao', 'zaolingo'],
   ['thezao', 'zaoscout'], ['thezao', 'zaostock'], ['thezao', 'zlank'], ['thezao', 'zuke'], ['wavewarz', 'zabalgamez'],
   ['wavewarz', 'zao-assistant'], ['wavewarz', 'zao-festivals'], ['wavewarz', 'zaoscout'], ['wavewarz', 'zaostock'],
