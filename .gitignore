@@ -43,3 +43,6 @@ yarn-error.log*
 # until 2026-09-09, churning a one-line diff on every build and breaking
 # ff-only pulls for anyone who had built locally.
 *.tsbuildinfo
+
+# Claude Code session files, never part of the site
+.claude/

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { WebflowMember } from '@/lib/webflowMembers'
 
-export function MemberCard({ member }: { member: WebflowMember }) {
+export function MemberCard({ member, line }: { member: WebflowMember; line?: string | null }) {
   return (
     <Link
       href={`/community/${member.slug}`}
@@ -25,6 +25,11 @@ export function MemberCard({ member }: { member: WebflowMember }) {
         {member.category && (
           <p className="mt-1 text-xs" style={{ color: 'var(--zao-cream-dim)' }}>
             {member.category}
+          </p>
+        )}
+        {line && (
+          <p className="mt-1 text-xs" style={{ color: 'var(--zao-cream-faint)' }}>
+            {line}
           </p>
         )}
       </div>

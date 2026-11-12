@@ -7,6 +7,7 @@ import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { WEBFLOW_MEMBERS, categorySlug } from '@/lib/webflowMembers'
 import { WEBFLOW_DROPS, hasDrops } from '@/lib/webflowDrops'
+import { ORIGINS, activityFor, activityLine } from '@/lib/communityActivity'
 
 // Only the public carried-over profiles render (drafts redirect, see next.config.ts); everything else 404s.
 export const dynamicParams = false
@@ -104,6 +105,19 @@ export default async function CommunityProfile({
                 </Link>
               )}
               <h1 className="text-4xl font-bold leading-tight sm:text-6xl">{m.name}</h1>
+              {(() => {
+                const a = activityFor(m.slug)
+                const line = activityLine(a)
+                const from = ORIGINS.filter((o) => a.origins.includes(o.key) && o.key !== 'friends')
+                  .map((o) => o.title)
+                  .join(', ')
+                if (!line && !from) return null
+                return (
+                  <p className="text-sm" style={{ color: 'var(--zao-cream-dim)' }}>
+                    {[line, from ? `Came in through ${from}` : null].filter(Boolean).join('. ')}
+                  </p>
+                )
+              })()}
               {hasDrops(m.slug) && (
                 <Link
                   href="/music-releases"

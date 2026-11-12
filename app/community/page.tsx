@@ -4,7 +4,7 @@ import { Section } from '@/components/Section'
 import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
-import { MemberCard } from '@/components/MemberCard'
+import { CommunityDirectory } from '@/components/CommunityDirectory'
 import { WEBFLOW_MEMBERS } from '@/lib/webflowMembers'
 
 export const metadata: Metadata = {
@@ -51,13 +51,10 @@ export default function Community() {
       <Section heading="The artists &amp; builders">
         <p className="section-sub -mt-4 mb-8" style={{ color: 'var(--zao-cream-dim)' }}>
           {WEBFLOW_MEMBERS.length} members of The ZAO, in their own words. The community is
-          bigger than any one list.
+          bigger than any one list. Order it by who is most active, or filter by role and by
+          where people came in.
         </p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
-          {WEBFLOW_MEMBERS.map((member) => (
-            <MemberCard key={member.slug} member={member} />
-          ))}
-        </div>
+        <CommunityDirectory members={WEBFLOW_MEMBERS} />
       </Section>
 
       <Section heading="How it works">

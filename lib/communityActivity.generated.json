@@ -1,0 +1,54 @@
+{
+  "updatedAt": "2026-11-12",
+  "battlesRead": 1706,
+  "handles": {
+    "gesd1": {
+      "battles": 11,
+      "last90": 1,
+      "last365": 11,
+      "lastBattle": "2026-11-12"
+    },
+    "hurric4n3ike": {
+      "battles": 163,
+      "last90": 28,
+      "last365": 163,
+      "lastBattle": "2026-11-12"
+    },
+    "bettercallzaal": {
+      "battles": 52,
+      "last90": 9,
+      "last365": 52,
+      "lastBattle": "2026-11-12"
+    },
+    "godcloud": {
+      "battles": 100,
+      "last90": 11,
+      "last365": 100,
+      "lastBattle": "2026-11-07"
+    },
+    "dopestilo": {
+      "battles": 213,
+      "last90": 22,
+      "last365": 213,
+      "lastBattle": "2026-11-05"
+    },
+    "nessytherilla": {
+      "battles": 6,
+      "last90": 6,
+      "last365": 6,
+      "lastBattle": "2026-10-17"
+    },
+    "dcoopofficial": {
+      "battles": 14,
+      "last90": 0,
+      "last365": 14,
+      "lastBattle": "2026-05-26"
+    },
+    "imanafrikah": {
+      "battles": 20,
+      "last90": 0,
+      "last365": 20,
+      "lastBattle": "2026-05-12"
+    }
+  }
+}
