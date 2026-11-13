@@ -26,6 +26,7 @@ export const NAV_LINKS = [
   { label: 'Nexus', href: '/nexus' },
   { label: 'Papers', href: '/papers' },
   { label: 'Community', href: '/community' },
+  { label: 'Listen', href: '/listen' },
   { label: 'Calendar', href: '/calendar' },
   { label: 'Leaderboard', href: '/zao-leaderboard' },
   { label: 'AI Tools', href: '/ai' },
