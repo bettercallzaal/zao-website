@@ -1,0 +1,133 @@
+/* Concept D, The Paper. Broadsheet structure on the brand navy and gold: hairline rules,
+   columns, a masthead and tabular figures. Scoped under .paper so nothing leaks. */
+
+.paper {
+  min-height: 100vh;
+  background: var(--zao-dark);
+  color: var(--zao-text);
+  font-size: 1.05rem;
+}
+.paper a { color: inherit; }
+.paper-wrap { max-width: 76rem; margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 640px) { .paper-wrap { padding: 0 2rem; } }
+
+.paper-mast { padding-top: 1.25rem; text-align: center; }
+.paper-mast-top {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--zao-cream-dim);
+  border-top: 3px double var(--zao-cream); border-bottom: 1px solid var(--zao-border);
+  padding: 0.45rem 0;
+}
+.paper-title {
+  font-size: clamp(3.6rem, 15vw, 9.5rem); line-height: 0.9; letter-spacing: -0.03em;
+  margin: 1.25rem 0 0.5rem; color: var(--zao-cream);
+}
+.paper-motto { font-style: italic; color: var(--zao-cream-dim); max-width: 40rem; margin: 0 auto; }
+.paper-index {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem 1.5rem;
+  margin-top: 1.25rem; padding: 0.6rem 0;
+  border-top: 1px solid var(--zao-cream); border-bottom: 3px double var(--zao-cream);
+  font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+}
+.paper-index a:hover, .paper-index a:focus-visible { color: var(--zao-cream); }
+
+.paper-grid { display: grid; gap: 2rem; padding-top: 2rem; padding-bottom: 2rem; }
+@media (min-width: 1024px) {
+  .paper-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 0; }
+  .paper-lead { padding-right: 2.5rem; border-right: 1px solid var(--zao-border); }
+  .paper-daily { padding-left: 2.5rem; }
+}
+
+.paper-kicker, .paper-label {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+  color: var(--zao-cream);
+}
+.paper-label { border-bottom: 1px solid var(--zao-cream); padding-bottom: 0.4rem; margin-bottom: 1rem; }
+.paper-head {
+  font-size: clamp(2.3rem, 6.5vw, 4.6rem); line-height: 1; margin: 0.6rem 0 1rem;
+  color: var(--zao-text); letter-spacing: -0.02em;
+}
+.paper-deck { font-size: 1.25rem; line-height: 1.5; color: var(--zao-cream-dim); max-width: 42rem; }
+.paper-byline { margin-top: 1rem; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--zao-cream); }
+.paper-cta {
+  display: inline-block; margin-top: 1.25rem; padding: 0.6rem 1.1rem;
+  background: var(--zao-cream); color: var(--zao-dark) !important; font-weight: 600;
+}
+.paper-cta:hover { opacity: 0.85; }
+
+.paper-brief { margin-top: 2.5rem; }
+.paper-brief li, .paper-earlier li {
+  padding: 0.55rem 0; border-bottom: 1px solid var(--zao-border); line-height: 1.35;
+}
+.paper-when {
+  display: inline-block; min-width: 4.2rem; margin-right: 0.6rem;
+  font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--zao-cream-faint); font-variant-numeric: tabular-nums;
+}
+
+.paper-ed { display: block; }
+.paper-ed-title { display: block; font-size: 1.85rem; line-height: 1.05; color: var(--zao-text); margin-bottom: 0.35rem; }
+.paper-ed-excerpt {
+  display: block; margin: 0.6rem 0; line-height: 1.55; color: var(--zao-cream-dim);
+  /* a drop cap: the oldest newspaper move, and a code-made one */
+}
+.paper-ed-excerpt::first-letter {
+  float: left; font-size: 3.2rem; line-height: 0.85; padding: 0.2rem 0.4rem 0 0; color: var(--zao-cream);
+}
+.paper-more, .paper-ed:hover .paper-ed-title { color: var(--zao-cream); }
+.paper-more { font-size: 0.85rem; font-weight: 600; }
+.paper-earlier { margin-top: 1.25rem; }
+.paper-earlier a:hover { color: var(--zao-cream); }
+
+.paper-section { padding-top: 2rem; padding-bottom: 2rem; border-top: 3px double var(--zao-cream); }
+.paper-section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.5rem; margin-bottom: 1.25rem; }
+.paper-section-head p { color: var(--zao-cream-dim); font-style: italic; }
+.paper-section-head a { text-decoration: underline; text-underline-offset: 3px; }
+.paper-h2 { font-size: clamp(2rem, 5vw, 3rem); }
+
+.paper-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.paper-table th {
+  text-align: left; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--zao-cream-faint); font-weight: 600; padding-bottom: 0.5rem; border-bottom: 1px solid var(--zao-cream);
+}
+.paper-table td { padding: 0.7rem 0; border-bottom: 1px solid var(--zao-border); vertical-align: top; }
+.paper-table td a:hover { color: var(--zao-cream); }
+.paper-num { text-align: right !important; white-space: nowrap; padding-left: 1rem !important; }
+.paper-vs { color: var(--zao-cream-faint); font-style: italic; }
+.paper-won { font-weight: 600; color: var(--zao-cream); }
+.paper-tag {
+  display: block; margin-top: 0.15rem; font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--zao-cream-faint);
+}
+
+.paper-cal { display: grid; gap: 0; }
+@media (min-width: 768px) { .paper-cal { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; } }
+.paper-cal-day { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--zao-border); }
+.paper-cal-date {
+  display: flex; flex-direction: column; align-items: center; min-width: 3.4rem;
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--zao-cream-dim);
+}
+.paper-cal-date strong { font-size: 2rem; line-height: 1; color: var(--zao-cream); }
+.paper-cal-day li { padding: 0.15rem 0; line-height: 1.35; }
+.paper-cal-day a:hover { color: var(--zao-cream); }
+
+.paper-wire { padding-top: 2rem; padding-bottom: 3rem; border-top: 3px double var(--zao-cream); color: var(--zao-cream-dim); }
+.paper-wire li { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.3rem 0; }
+.paper-wire a { text-decoration: underline; text-underline-offset: 3px; }
+.paper-wire p { margin-top: 1rem; font-style: italic; }
+.paper-ok, .paper-down {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  min-width: 4.5rem; color: var(--zao-cream);
+}
+.paper-down { color: #ff8a7a; }
+.paper-missing { font-style: italic; color: var(--zao-cream-faint); padding: 1rem 0; }
+
+/* Section rules sit inside the column gutters, not across them. */
+.paper-section, .paper-wire { border-top: 0; position: relative; }
+.paper-section::before, .paper-wire::before {
+  content: ''; position: absolute; top: 0; left: 1rem; right: 1rem; border-top: 3px double var(--zao-cream);
+}
+@media (min-width: 640px) {
+  .paper-section::before, .paper-wire::before { left: 2rem; right: 2rem; }
+}
