@@ -4,7 +4,8 @@
 // links are the members' own words and links, not rewritten.
 //
 // Gaps here are gaps in the Webflow source, not extraction failures:
-//   no category: makk-jay, phantom-mode
+//   no category: makk-jay, phantom-mode (both set to Musician on 2026-11-11, from
+//                their own bios: a rap, pop and rock artist; an electronic duo)
 //   no bio:      joseph-goats, stilo
 // Photos live in /public/members/<slug> and are served from this repo, so they
 // survive the Webflow plan lapsing.
@@ -578,7 +579,7 @@ const ALL_WEBFLOW_MEMBERS: WebflowMember[] = [
   {
     slug: 'makk-jay',
     name: 'Makk Jay',
-    category: null,
+    category: 'Musician',
     website: null,
     photo: '/members/makk-jay.png',
     bio: [
@@ -673,7 +674,7 @@ const ALL_WEBFLOW_MEMBERS: WebflowMember[] = [
   {
     slug: 'phantom-mode',
     name: 'Phantom Mode',
-    category: null,
+    category: 'Musician',
     website: null,
     photo: '/members/phantom-mode.png',
     bio: [
@@ -869,7 +870,7 @@ export type ArtistCategory = { slug: string; name: string; members: WebflowMembe
 export const ARTIST_CATEGORIES: ArtistCategory[] = (() => {
   const bySlug = new Map<string, ArtistCategory>()
   for (const m of WEBFLOW_MEMBERS) {
-    if (!m.category) continue // makk-jay and phantom-mode have no category in the source
+    if (!m.category) continue // a member with no category is left off the category pages
     const slug = categorySlug(m.category)
     const existing = bySlug.get(slug)
     if (existing) existing.members.push(m)
