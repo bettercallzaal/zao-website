@@ -1,57 +1,81 @@
+import Link from 'next/link'
+import { Fraunces } from 'next/font/google'
 import { Nav } from '@/components/Nav'
 import { Section } from '@/components/Section'
-import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
-import { ArtistCard } from '@/components/ArtistCard'
 import { StatTile } from '@/components/StatTile'
-import { NOTABLE_ARTISTS } from '@/lib/constants'
+import { ECOSYSTEM } from '@/lib/constants'
 import { getWaveWarZStats, getTopArtists, fmtNum } from '@/lib/wavewarz'
 import { BrandDoors } from '@/components/BrandDoors'
+import { RoomRings } from '@/components/room/RoomRings'
 import { getPulses } from '@/lib/frontdoor'
+
+// The Room (concept C, PR 70) is the homepage. This is a proposal: it waits on Zaal and on
+// Brian (design lead) before it ships. Copy is limited to what is already on the live site
+// or on https://context.thezao.com/thezao.
+
+const serif = Fraunces({ subsets: ['latin'], weight: ['400', '700'], style: ['normal', 'italic'] })
 
 export default async function Home() {
   const [ww, topArtists, pulses] = await Promise.all([getWaveWarZStats(), getTopArtists(5), getPulses()])
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-x-hidden">
       <Nav />
 
       {/* The front door: every ZAO brand, one click to its own site (Zaal, 2026-10-28). */}
       <BrandDoors pulses={pulses} />
 
-      {/* Hero - lead with the thesis */}
-      <section className="py-16 sm:py-24" style={{ borderBottom: '1px solid var(--zao-border)' }}>
-        <Container>
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-            {/* Record and equalizer: designed by IMan (ZAODEVZ/thezao.com-iman-ui), card 9407 */}
-            <div className="zao-hero-visual lg:order-2" aria-hidden="true">
-              <div className="zao-glow" />
-              <div className="zao-vinyl" />
-              <div className="zao-eq">
-                <i /><i /><i /><i /><i /><i /><i />
-              </div>
-            </div>
-            <div className="space-y-6 sm:space-y-8">
-              <p className="zao-eyebrow text-xs font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--zao-cream)' }}>
-                A decentralized impact network for artists
-              </p>
-              <h1 className="max-w-3xl text-4xl font-bold leading-tight sm:text-6xl">
-                A home where artists own their work.
-              </h1>
-              <p className="max-w-2xl text-lg leading-relaxed sm:text-xl" style={{ color: 'var(--zao-text)' }}>
-                The ZAO builds tools, spaces, and systems for artists and creators - and governs
-                itself with a vote you earn, not one you buy. Built in the open, on Farcaster and Base.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Button href="/community">Explore the community</Button>
-                <Button href="/papers" variant="secondary">
-                  Read the whitepaper
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Container>
+      {/* The Room: the thesis, then the people in it. */}
+      <div className="mx-auto max-w-6xl px-4 pt-12 text-center sm:px-8 sm:pt-20">
+        <p className="zao-eyebrow text-xs font-medium uppercase tracking-[0.18em]" style={{ color: 'var(--zao-cream)' }}>
+          A decentralized impact network for artists
+        </p>
+        <h1 className={`${serif.className} mx-auto mt-5 max-w-4xl text-5xl leading-[1.02] sm:text-7xl`}>
+          A home where artists <em style={{ color: 'var(--zao-cream)' }}>own their work.</em>
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
+          The ZAO hands artists back their profit margin, their data and their IP. It decides what to do
+          next in weekly rooms where members rank each other&apos;s work. These are some of the people in
+          the room.
+        </p>
+      </div>
+
+      <RoomRings />
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8" style={{ borderTop: '1px solid var(--zao-border)' }}>
+        <h2 className={`${serif.className} max-w-3xl text-4xl leading-tight sm:text-5xl`}>
+          How a room decides. <em style={{ color: 'var(--zao-cream)' }}>Earned, not bought.</em>
+        </h2>
+        <ol className="mt-12 grid gap-10 sm:grid-cols-3" style={{ counterReset: 'zao-step' }}>
+          <li className="zao-room-step">
+            <p className="text-xl font-semibold">Show up</p>
+            <p className="mt-2 leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
+              Weekly rooms where members rank each other&apos;s work.
+            </p>
+          </li>
+          <li className="zao-room-step">
+            <p className="text-xl font-semibold">Get ranked by peers</p>
+            <p className="mt-2 leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
+              Reputation is built weekly by peers, based on real contribution.
+            </p>
+          </li>
+          <li className="zao-room-step">
+            <p className="text-xl font-semibold">Earn Respect</p>
+            <p className="mt-2 leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
+              Respect is an onchain reputation on Optimism. It cannot be bought, sold, or transferred.
+            </p>
+          </li>
+        </ol>
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <Button href="/papers" variant="primary">
+            Read the whitepaper
+          </Button>
+          <Button href="/zao-leaderboard" variant="secondary">
+            How Respect works
+          </Button>
+        </div>
       </section>
 
       {/* Luma events: reuse the calendar embed already used on /calendar. */}
@@ -155,106 +179,56 @@ export default async function Home() {
         )}
       </Section>
 
-      {/* Governance spine - the differentiator */}
-      <Section eyebrow="Governance" heading="Earned, not bought">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="max-w-2xl space-y-4">
-            <p style={{ color: 'var(--zao-cream-dim)' }}>
-              In most communities a vote is something you buy - hold the most tokens, hold the
-              most power. The ZAO takes the opposite position. Here, a vote is something you earn,
-              through Respect: an onchain reputation built by showing up and contributing, ranked
-              by peers each week. It cannot be bought, sold, or transferred.
-            </p>
-            <p style={{ color: 'var(--zao-cream-dim)' }}>
-              The whitepaper lays out the theory, the mechanics, and the verifiable on-chain
-              architecture in full.
-            </p>
-            <div className="flex flex-col gap-4 pt-2 sm:flex-row">
-              <Button href="/papers" variant="primary">
-                Read the whitepaper
-              </Button>
-              <Button href="/zao-leaderboard" variant="secondary">
-                How Respect works
-              </Button>
-            </div>
-          </div>
-          {/* Buy vs earn comparison: designed by IMan (ZAODEVZ/thezao.com-iman-ui), card 9407 */}
-          <div className="flex flex-col gap-3">
-            <div className="rounded-xl p-5 opacity-60" style={{ border: '1px solid rgba(234, 240, 248, 0.09)', backgroundColor: 'var(--zao-dark-alt)' }}>
-              <p className="mb-1 flex items-center gap-3 font-bold" style={{ color: 'var(--zao-text)' }}>
-                <span
-                  className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md"
-                  style={{ backgroundColor: 'rgba(225, 87, 87, 0.18)', color: '#e15757' }}
-                  aria-hidden="true"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-                    <path d="M6 6l12 12M18 6L6 18" />
-                  </svg>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8" style={{ borderTop: '1px solid var(--zao-border)' }}>
+        <h2 className={`${serif.className} text-4xl sm:text-5xl`}>What the rooms build</h2>
+        <ul className="mt-10">
+          {ECOSYSTEM.map((p) => (
+            <li key={p.name} style={{ borderTop: '1px solid var(--zao-border)' }}>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col gap-1 py-6 sm:flex-row sm:items-baseline sm:gap-10"
+              >
+                <span className={`${serif.className} text-3xl transition-colors group-hover:text-[var(--zao-cream)] sm:w-80 sm:shrink-0`}>
+                  {p.name}
                 </span>
-                Buy tokens, buy power
-              </p>
-              <p className="text-sm" style={{ color: 'var(--zao-cream-dim)' }}>
-                The usual model. Whoever holds the most tokens controls the vote.
-              </p>
-            </div>
-            <p className="flex items-center gap-2 pl-2 text-sm" style={{ color: 'var(--zao-cream-faint)' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <path d="M12 5v14M5 12l7 7 7-7" />
-              </svg>
-              The ZAO way instead
-            </p>
-            <div
-              className="rounded-xl p-5"
-              style={{ border: '1px solid rgba(245, 197, 24, 0.32)', background: 'linear-gradient(180deg, var(--zao-panel-hover), transparent)' }}
-            >
-              <p className="mb-1 flex items-center gap-3 font-bold" style={{ color: 'var(--zao-text)' }}>
-                <span
-                  className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md"
-                  style={{ backgroundColor: 'var(--zao-cream)', color: 'var(--zao-dark)' }}
-                  aria-hidden="true"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-                    <path d="M4 12l5 5L20 6" />
-                  </svg>
-                </span>
-                Show up, earn Respect
-              </p>
-              <p className="text-sm" style={{ color: 'var(--zao-cream-dim)' }}>
-                Reputation is built weekly by peers, based on real contribution. It cannot be bought,
-                sold, or transferred.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section eyebrow="Community" heading="Notable artists & builders">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
-          {NOTABLE_ARTISTS.map((artist) => (
-            <ArtistCard key={artist} name={artist} />
+                <span style={{ color: 'var(--zao-cream-dim)' }}>{p.blurb}</span>
+              </a>
+            </li>
           ))}
-        </div>
-      </Section>
+        </ul>
+        <p className="mt-8">
+          <Link href="/projects" className="underline underline-offset-4" style={{ color: 'var(--zao-cream)' }}>
+            All projects
+          </Link>
+        </p>
+      </section>
 
-      {/* Convert */}
-      <section className="py-16 sm:py-24">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-6 text-3xl font-bold sm:text-4xl">Come build with us</h2>
-            <p className="mb-8 text-base leading-relaxed sm:text-lg" style={{ color: 'var(--zao-cream-dim)' }}>
-              Whether you make music, build tools, or just like what we are doing, there is a
-              place for you here. Show up, contribute, and earn your standing.
-            </p>
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Button href="https://farcaster.xyz/~/channel/zao" external>
-                Join on Farcaster
-              </Button>
-              <Button href="/nexus" variant="secondary">
-                Browse the Nexus
-              </Button>
-            </div>
-          </div>
-        </Container>
+      <section className="px-4 py-20 text-center sm:px-8" style={{ borderTop: '1px solid var(--zao-border)' }}>
+        <h2 className={`${serif.className} mx-auto max-w-3xl text-4xl leading-tight sm:text-6xl`}>
+          There is a <em style={{ color: 'var(--zao-cream)' }}>seat</em> for you.
+        </h2>
+        <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+          <a
+            href="https://luma.com/zao"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full px-7 py-3 font-bold"
+            style={{ backgroundColor: 'var(--zao-cream)', color: 'var(--zao-dark)' }}
+          >
+            Join the next room
+          </a>
+          <a
+            href="https://farcaster.xyz/~/channel/zao"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full px-7 py-3"
+            style={{ border: '1px solid var(--zao-border)' }}
+          >
+            Say hi on /zao
+          </a>
+        </div>
       </section>
 
       <Footer />
