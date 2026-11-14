@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { MEMBERS } from '@/lib/members'
 import { WEBFLOW_MEMBERS, ARTIST_CATEGORIES } from '@/lib/webflowMembers'
 import { WEBFLOW_DROPS } from '@/lib/webflowDrops'
+import { LISTEN_CLEARED } from '@/components/listen/tracks'
 
 const BASE = 'https://thezao.com'
 
@@ -23,6 +24,10 @@ const ROUTES = [
   '/ai',
   '/api-docs',
   '/music-releases',
+  '/projects',
+  '/blog',
+  // The Player stays out of the sitemap until music rights are cleared.
+  ...(LISTEN_CLEARED ? ['/projects/listen'] : []),
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
