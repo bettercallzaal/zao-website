@@ -6,6 +6,8 @@
   background: var(--zao-dark);
   color: var(--zao-text);
   font-size: 1.05rem;
+  /* System serif stand-in for the body typeface (was Newsreader via next/font/google, which failed in CI). Designer to settle. */
+  font-family: Georgia, 'Times New Roman', serif;
 }
 .paper a { color: inherit; }
 .paper-wrap { max-width: 76rem; margin: 0 auto; padding: 0 1rem; }

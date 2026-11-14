@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Newsreader } from 'next/font/google'
+import { Playfair_Display } from 'next/font/google'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { getEditions } from '@/lib/paragraphFeed'
@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 }
 
 const mast = Playfair_Display({ subsets: ['latin'], weight: ['700', '900'] })
-const body = Newsreader({ subsets: ['latin'], weight: ['400', '600'], style: ['normal', 'italic'] })
 
 const fmt = (iso: string, o: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', ...o }).format(new Date(iso))
@@ -36,7 +35,7 @@ export default async function BlogPage() {
   const latest = editions?.[0]
 
   return (
-    <div className={`paper ${body.className}`}>
+    <div className="paper">
       <Nav />
 
       <header className="paper-wrap paper-mast">
