@@ -36,9 +36,8 @@ export default async function Home() {
           A home where artists <em style={{ color: 'var(--zao-cream)' }}>own their work.</em>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed" style={{ color: 'var(--zao-cream-dim)' }}>
-          The ZAO hands artists back their profit margin, their data and their IP. It decides what to do
-          next in weekly rooms where members rank each other&apos;s work. These are some of the people in
-          the room.
+          The ZAO hands artists back their profit margin, their data and their IP, and governs itself
+          with a vote you earn, not one you buy. These are some of the people in the room.
         </p>
       </div>
 
@@ -46,7 +45,7 @@ export default async function Home() {
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8" style={{ borderTop: '1px solid var(--zao-border)' }}>
         <h2 className={`${serif.className} max-w-3xl text-4xl leading-tight sm:text-5xl`}>
-          How a room decides. <em style={{ color: 'var(--zao-cream)' }}>Earned, not bought.</em>
+          How a room works. <em style={{ color: 'var(--zao-cream)' }}>Earned, not bought.</em>
         </h2>
         <ol className="mt-12 grid gap-10 sm:grid-cols-3" style={{ counterReset: 'zao-step' }}>
           <li className="zao-room-step">
