@@ -8,6 +8,7 @@
 // A signal that cannot be read is simply absent, never a guess: the door still opens.
 
 import { parseIcs, splitEventsByTime } from '@/lib/api/ics-parser'
+import { getEditions } from '@/lib/paragraphFeed'
 
 export type Door = {
   name: string
@@ -80,13 +81,8 @@ async function fractal(): Promise<Pulse | undefined> {
 }
 
 async function newsletter(): Promise<Pulse | undefined> {
-  try {
-    const xml = await (await get('https://api.paragraph.com/blogs/rss/@thezao', { headers: { 'User-Agent': 'thezao.com' } })).text()
-    const item = xml.match(/<item>([\s\S]*?)<\/item>/)?.[1]
-    const title = item?.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1]?.trim()
-    if (title) return { text: `Latest: ${title}`, live: false }
-  } catch {}
-  return undefined
+  const latest = (await getEditions())?.[0]
+  return latest ? { text: `Latest: ${latest.title}`, live: false } : undefined
 }
 
 export async function getPulses(): Promise<Pulses> {
