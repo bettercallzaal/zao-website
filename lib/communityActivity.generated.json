@@ -1,17 +1,59 @@
 {
-  "updatedAt": "2026-11-12",
-  "battlesRead": 1706,
+  "updatedAt": "2026-11-16",
+  "battlesRead": 1714,
   "handles": {
+    "godcloud": {
+      "battles": 101,
+      "last90": 11,
+      "last365": 101,
+      "lastBattle": "2026-11-14"
+    },
+    "luiwrites": {
+      "battles": 309,
+      "last90": 75,
+      "last365": 309,
+      "lastBattle": "2026-11-14"
+    },
+    "hurric4n3ike": {
+      "battles": 164,
+      "last90": 28,
+      "last365": 164,
+      "lastBattle": "2026-11-14"
+    },
+    "aporkalypse78": {
+      "battles": 87,
+      "last90": 13,
+      "last365": 87,
+      "lastBattle": "2026-11-14"
+    },
+    "stormbourne": {
+      "battles": 264,
+      "last90": 40,
+      "last365": 264,
+      "lastBattle": "2026-11-14"
+    },
     "gesd1": {
       "battles": 11,
       "last90": 1,
       "last365": 11,
       "lastBattle": "2026-11-12"
     },
-    "hurric4n3ike": {
-      "battles": 163,
+    "srchappell": {
+      "battles": 59,
+      "last90": 38,
+      "last365": 59,
+      "lastBattle": "2026-11-12"
+    },
+    "_0xquan": {
+      "battles": 73,
       "last90": 28,
-      "last365": 163,
+      "last365": 73,
+      "lastBattle": "2026-11-12"
+    },
+    "geekmyth": {
+      "battles": 78,
+      "last90": 27,
+      "last365": 78,
       "lastBattle": "2026-11-12"
     },
     "bettercallzaal": {
@@ -20,23 +62,113 @@
       "last365": 52,
       "lastBattle": "2026-11-12"
     },
-    "godcloud": {
-      "battles": 100,
-      "last90": 11,
-      "last365": 100,
-      "lastBattle": "2026-11-07"
+    "cannonjones973": {
+      "battles": 226,
+      "last90": 23,
+      "last365": 226,
+      "lastBattle": "2026-11-10"
+    },
+    "shawnsporter": {
+      "battles": 106,
+      "last90": 21,
+      "last365": 106,
+      "lastBattle": "2026-11-10"
     },
     "dopestilo": {
       "battles": 213,
-      "last90": 22,
+      "last90": 21,
       "last365": 213,
       "lastBattle": "2026-11-05"
+    },
+    "sweetbiddi": {
+      "battles": 22,
+      "last90": 1,
+      "last365": 22,
+      "lastBattle": "2026-10-24"
+    },
+    "metaverseslim": {
+      "battles": 16,
+      "last90": 1,
+      "last365": 16,
+      "lastBattle": "2026-10-17"
     },
     "nessytherilla": {
       "battles": 6,
       "last90": 6,
       "last365": 6,
       "lastBattle": "2026-10-17"
+    },
+    "kata7yst": {
+      "battles": 249,
+      "last90": 16,
+      "last365": 249,
+      "lastBattle": "2026-10-13"
+    },
+    "frameworkfortune": {
+      "battles": 32,
+      "last90": 14,
+      "last365": 32,
+      "lastBattle": "2026-10-07"
+    },
+    "nemesisladyryn": {
+      "battles": 16,
+      "last90": 5,
+      "last365": 16,
+      "lastBattle": "2026-09-26"
+    },
+    "rocky2grimey": {
+      "battles": 156,
+      "last90": 17,
+      "last365": 156,
+      "lastBattle": "2026-09-19"
+    },
+    "tucknuisance": {
+      "battles": 9,
+      "last90": 1,
+      "last365": 9,
+      "lastBattle": "2026-09-03"
+    },
+    "nftwonderfull": {
+      "battles": 17,
+      "last90": 0,
+      "last365": 17,
+      "lastBattle": "2026-07-18"
+    },
+    "retrospect": {
+      "battles": 10,
+      "last90": 0,
+      "last365": 10,
+      "lastBattle": "2026-07-18"
+    },
+    "bennyj504": {
+      "battles": 23,
+      "last90": 0,
+      "last365": 23,
+      "lastBattle": "2026-07-05"
+    },
+    "xtinct_official": {
+      "battles": 85,
+      "last90": 0,
+      "last365": 85,
+      "lastBattle": "2026-06-13"
+    },
+    "ace1yoda": {
+      "battles": 3,
+      "last90": 0,
+      "last365": 3,
+      "lastBattle": "2026-06-06"
+    },
+    "ozthecryptogoat": {
+      "battles": 3,
+      "last90": 0,
+      "last365": 3,
+      "lastBattle": "2026-05-30"
+    },
+    "sicariobaby": {
+      "battles": 2,
+      "last90": 0,
+      "last365": 2,
+      "lastBattle": "2026-05-27"
     },
     "dcoopofficial": {
       "battles": 14,
