@@ -29,6 +29,7 @@ export const NAV_LINKS = [
   { label: 'Papers', href: '/papers' },
   { label: 'Community', href: '/community' },
   { label: 'Calendar', href: '/calendar' },
+  { label: 'Fractal', href: '/fractal' },
   { label: 'Leaderboard', href: '/zao-leaderboard' },
   { label: 'AI Tools', href: '/ai' },
   { label: 'Links', href: '/links' },
