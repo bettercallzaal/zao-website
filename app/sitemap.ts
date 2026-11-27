@@ -16,6 +16,7 @@ const ROUTES = [
   '/brand',
   '/community',
   '/calendar',
+  '/fractal',
   '/zao-leaderboard',
   '/about',
   '/press',
